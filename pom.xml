@@ -5,7 +5,7 @@
   <groupId>com.alexd.app</groupId>
   <artifactId>truck_app</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>truck_app</name>
   <url>http://maven.apache.org</url>
@@ -22,4 +22,15 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <webXml>Web\WEB-INF\web.xml</webXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
