@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="truck_app:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="truck_app-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="truck_app:war exploded" />
+    </root>
+  </artifact>
+</component>
