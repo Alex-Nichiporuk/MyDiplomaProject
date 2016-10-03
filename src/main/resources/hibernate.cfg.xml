@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/truck_app</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hbm2ddl.auto">update</property>
+    <mapping class="com.alexd.model.CargoEntity"/>
+    <mapping class="com.alexd.model.DriversEntity"/>
+    <mapping class="com.alexd.model.DriversdescEntity"/>
+    <mapping class="com.alexd.model.MapEntity"/>
+    <mapping class="com.alexd.model.OrdersEntity"/>
+    <mapping class="com.alexd.model.PathsEntity"/>
+    <mapping class="com.alexd.model.PointsEntity"/>
+    <mapping class="com.alexd.model.RolesEntity"/>
+    <mapping class="com.alexd.model.TrucksEntity"/>
+    <mapping class="com.alexd.model.WorkplanEntity"/>
+
+
+    <!-- DB schema will be updated if needed -->
+
+  </session-factory>
+</hibernate-configuration>
