@@ -1,68 +1,49 @@
 package com.alexd.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
- * Created by Cj444 on 03.10.2016.
+ * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "drivers", schema = "truck_app", catalog = "")
+@Table(name = "drivers", schema = "mydb", catalog = "")
 public class DriversEntity {
-    private int driverId;
-    private String name;
-    private String lastName;
-    private Timestamp workTime;
-    private String status;
+    private int id;
+    private Integer size;
+    private String truckId;
+    private TruckEntity truckByTruckId;
+    private Collection<DriversHasDriverEntity> driversHasDriversById;
+    private Collection<OrdersEntity> ordersById;
 
     @Id
-    @Column(name = "DriverId", nullable = false)
-    public int getDriverId() {
-        return driverId;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
-
-    @Basic
-    @Column(name = "Name", nullable = true, length = 20)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "LastName", nullable = true, length = 20)
-    public String getLastName() {
-        return lastName;
+    @Column(name = "Size", nullable = true)
+    public Integer getSize() {
+        return size;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
-    @Basic
-    @Column(name = "WorkTime", nullable = true)
-    public Timestamp getWorkTime() {
-        return workTime;
+   @Basic
+    @Column(name = "Truck_id", nullable = false, length = 7)
+    public String getTruckId() {
+        return truckId;
     }
 
-    public void setWorkTime(Timestamp workTime) {
-        this.workTime = workTime;
-    }
-
-    @Basic
-    @Column(name = "Status", nullable = true, length = 3)
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTruckId(String truckId) {
+        this.truckId = truckId;
     }
 
     @Override
@@ -72,22 +53,46 @@ public class DriversEntity {
 
         DriversEntity that = (DriversEntity) o;
 
-        if (driverId != that.driverId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (workTime != null ? !workTime.equals(that.workTime) : that.workTime != null) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (id != that.id) return false;
+        if (size != null ? !size.equals(that.size) : that.size != null) return false;
+        if (truckId != null ? !truckId.equals(that.truckId) : that.truckId != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = driverId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (workTime != null ? workTime.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (size != null ? size.hashCode() : 0);
+        result = 31 * result + (truckId != null ? truckId.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "Truck_id", insertable = false, updatable = false,referencedColumnName = "id", nullable = false)
+    public TruckEntity getTruckByTruckId() {
+        return truckByTruckId;
+    }
+
+    public void setTruckByTruckId(TruckEntity truckByTruckId) {
+        this.truckByTruckId = truckByTruckId;
+    }
+
+    @OneToMany(mappedBy = "driversByDriversId")
+    public Collection<DriversHasDriverEntity> getDriversHasDriversById() {
+        return driversHasDriversById;
+    }
+
+    public void setDriversHasDriversById(Collection<DriversHasDriverEntity> driversHasDriversById) {
+        this.driversHasDriversById = driversHasDriversById;
+    }
+
+    @OneToMany(mappedBy = "driversByDriversId")
+    public Collection<OrdersEntity> getOrdersById() {
+        return ordersById;
+    }
+
+    public void setOrdersById(Collection<OrdersEntity> ordersById) {
+        this.ordersById = ordersById;
     }
 }

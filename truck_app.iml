@@ -18,7 +18,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="78578c95-6f16-412c-bb36-08bdca708111" />
+          <unit-entry name="hibernate.cfg.xml" value="ae251322-6155-40b6-b2c3-3c9ef2e1f473" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />

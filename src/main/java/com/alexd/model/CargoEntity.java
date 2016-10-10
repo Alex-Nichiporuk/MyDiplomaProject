@@ -1,30 +1,33 @@
 package com.alexd.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by Cj444 on 03.10.2016.
+ * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "cargo", schema = "truck_app", catalog = "")
+@Table(name = "cargo", schema = "mydb", catalog = "")
 public class CargoEntity {
-    private int cargoId;
+    private int id;
     private String name;
-    private Double weight;
-    private String status;
+    private double weight;
+    private int status;
+    private Collection<PointHasCargoEntity> pointHasCargosById;
 
     @Id
-    @Column(name = "CargoId", nullable = false)
-    public int getCargoId() {
-        return cargoId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setCargoId(int cargoId) {
-        this.cargoId = cargoId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "Name", nullable = true, length = 20)
+    @Column(name = "Name", nullable = false, length = 45)
     public String getName() {
         return name;
     }
@@ -34,22 +37,22 @@ public class CargoEntity {
     }
 
     @Basic
-    @Column(name = "Weight", nullable = true, precision = 0)
-    public Double getWeight() {
+    @Column(name = "Weight", nullable = false, precision = 0)
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
     @Basic
-    @Column(name = "Status", nullable = true, length = 3)
-    public String getStatus() {
+    @Column(name = "Status", nullable = false)
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -60,20 +63,32 @@ public class CargoEntity {
 
         CargoEntity that = (CargoEntity) o;
 
-        if (cargoId != that.cargoId) return false;
+        if (id != that.id) return false;
+        if (Double.compare(that.weight, weight) != 0) return false;
+        if (status != that.status) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = cargoId;
+        int result;
+        long temp;
+        result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
+        temp = Double.doubleToLongBits(weight);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + status;
         return result;
+    }
+
+    @OneToMany(mappedBy = "cargoByCargoId")
+    public Collection<PointHasCargoEntity> getPointHasCargosById() {
+        return pointHasCargosById;
+    }
+
+    public void setPointHasCargosById(Collection<PointHasCargoEntity> pointHasCargosById) {
+        this.pointHasCargosById = pointHasCargosById;
     }
 }

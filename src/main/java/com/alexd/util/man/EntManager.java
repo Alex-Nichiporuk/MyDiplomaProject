@@ -1,4 +1,4 @@
-package com.alexd.DAO;
+package com.alexd.util.man;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,7 +22,7 @@ public static EntityManager getManager()
     else
     {
         entityManagerFactory = Persistence.createEntityManagerFactory("truckApp");
-        EntityManager em = entityManagerFactory.createEntityManager();
+         em = entityManagerFactory.createEntityManager();
         return em;
     }
 

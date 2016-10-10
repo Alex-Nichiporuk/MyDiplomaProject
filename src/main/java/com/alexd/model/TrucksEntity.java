@@ -1,47 +1,48 @@
 package com.alexd.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by Cj444 on 03.10.2016.
+ * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "trucks", schema = "truck_app", catalog = "")
+@Table(name = "trucks", schema = "mydb", catalog = "")
 public class TrucksEntity {
-    private String truckId;
-    private Double capacity;
-    private Byte status;
-    private MapEntity mapByCityId;
-    private WorkplanEntity workplanByPlanId;
+    private int id;
+    private int countTrucks;
+    private int size;
+    private Collection<OrdersEntity> ordersById;
+    private Collection<TrucksHasTruckEntity> trucksHasTrucksById;
 
     @Id
-    @Column(name = "TruckId", nullable = false, length = 7)
-    public String getTruckId() {
-        return truckId;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setTruckId(String truckId) {
-        this.truckId = truckId;
-    }
-
-    @Basic
-    @Column(name = "Capacity", nullable = true, precision = 0)
-    public Double getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Double capacity) {
-        this.capacity = capacity;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "Status", nullable = true)
-    public Byte getStatus() {
-        return status;
+    @Column(name = "CountTrucks", nullable = false)
+    public int getCountTrucks() {
+        return countTrucks;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setCountTrucks(int countTrucks) {
+        this.countTrucks = countTrucks;
+    }
+
+    @Basic
+    @Column(name = "Size", nullable = false)
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     @Override
@@ -51,38 +52,36 @@ public class TrucksEntity {
 
         TrucksEntity that = (TrucksEntity) o;
 
-        if (truckId != null ? !truckId.equals(that.truckId) : that.truckId != null) return false;
-        if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (id != that.id) return false;
+        if (countTrucks != that.countTrucks) return false;
+        if (size != that.size) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = truckId != null ? truckId.hashCode() : 0;
-        result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
+        int result = id;
+        result = 31 * result + countTrucks;
+        result = 31 * result + size;
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "CityId", referencedColumnName = "CityId")
-    public MapEntity getMapByCityId() {
-        return mapByCityId;
+    @OneToMany(mappedBy = "trucksByTrucksId")
+    public Collection<OrdersEntity> getOrdersById() {
+        return ordersById;
     }
 
-    public void setMapByCityId(MapEntity mapByCityId) {
-        this.mapByCityId = mapByCityId;
+    public void setOrdersById(Collection<OrdersEntity> ordersById) {
+        this.ordersById = ordersById;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "PlanId", referencedColumnName = "PlanId")
-    public WorkplanEntity getWorkplanByPlanId() {
-        return workplanByPlanId;
+    @OneToMany(mappedBy = "trucksByTrucksId")
+    public Collection<TrucksHasTruckEntity> getTrucksHasTrucksById() {
+        return trucksHasTrucksById;
     }
 
-    public void setWorkplanByPlanId(WorkplanEntity workplanByPlanId) {
-        this.workplanByPlanId = workplanByPlanId;
+    public void setTrucksHasTrucksById(Collection<TrucksHasTruckEntity> trucksHasTrucksById) {
+        this.trucksHasTrucksById = trucksHasTrucksById;
     }
 }

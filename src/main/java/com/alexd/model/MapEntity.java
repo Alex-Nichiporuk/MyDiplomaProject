@@ -1,56 +1,60 @@
 package com.alexd.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by Cj444 on 03.10.2016.
+ * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "map", schema = "truck_app", catalog = "")
+@Table(name = "map", schema = "mydb", catalog = "")
 public class MapEntity {
-    private int cityId;
-    private String name;
-    private Double xCoor;
-    private Double yCoor;
+    private int id;
+    private String city;
+    private double latitude;
+    private double longitude;
+    private Collection<DriverEntity> driversById;
+    private Collection<PointEntity> pointsById;
+    private Collection<TruckEntity> trucksById;
 
     @Id
-    @Column(name = "CityId", nullable = false)
-    public int getCityId() {
-        return cityId;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
-
-    @Basic
-    @Column(name = "Name", nullable = true, length = 20)
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "XCoor", nullable = true, precision = 0)
-    public Double getxCoor() {
-        return xCoor;
+    @Column(name = "City", nullable = false, length = 45)
+    public String getCity() {
+        return city;
     }
 
-    public void setxCoor(Double xCoor) {
-        this.xCoor = xCoor;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Basic
-    @Column(name = "YCoor", nullable = true, precision = 0)
-    public Double getyCoor() {
-        return yCoor;
+    @Column(name = "Latitude", nullable = false, precision = 0)
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setyCoor(Double yCoor) {
-        this.yCoor = yCoor;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    @Basic
+    @Column(name = "Longitude", nullable = false, precision = 0)
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
@@ -60,20 +64,51 @@ public class MapEntity {
 
         MapEntity mapEntity = (MapEntity) o;
 
-        if (cityId != mapEntity.cityId) return false;
-        if (name != null ? !name.equals(mapEntity.name) : mapEntity.name != null) return false;
-        if (xCoor != null ? !xCoor.equals(mapEntity.xCoor) : mapEntity.xCoor != null) return false;
-        if (yCoor != null ? !yCoor.equals(mapEntity.yCoor) : mapEntity.yCoor != null) return false;
+        if (id != mapEntity.id) return false;
+        if (Double.compare(mapEntity.latitude, latitude) != 0) return false;
+        if (Double.compare(mapEntity.longitude, longitude) != 0) return false;
+        if (city != null ? !city.equals(mapEntity.city) : mapEntity.city != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = cityId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (xCoor != null ? xCoor.hashCode() : 0);
-        result = 31 * result + (yCoor != null ? yCoor.hashCode() : 0);
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        temp = Double.doubleToLongBits(latitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @OneToMany(mappedBy = "mapByMapId")
+    public Collection<DriverEntity> getDriversById() {
+        return driversById;
+    }
+
+    public void setDriversById(Collection<DriverEntity> driversById) {
+        this.driversById = driversById;
+    }
+
+    @OneToMany(mappedBy = "mapByMapId")
+    public Collection<PointEntity> getPointsById() {
+        return pointsById;
+    }
+
+    public void setPointsById(Collection<PointEntity> pointsById) {
+        this.pointsById = pointsById;
+    }
+
+    @OneToMany(mappedBy = "mapByMapId")
+    public Collection<TruckEntity> getTrucksById() {
+        return trucksById;
+    }
+
+    public void setTrucksById(Collection<TruckEntity> trucksById) {
+        this.trucksById = trucksById;
     }
 }

@@ -10,10 +10,10 @@
 
     <properties>
         <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/truck_app"/>
+        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb"/>
         <property name="hibernate.connection.username" value="root"/>
         <property name="hibernate.connection.password" value="123qwe"/>
-        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57InnoDBDialect"/>
         <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
 </persistence-unit>

@@ -2,29 +2,31 @@ package com.alexd.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
- * Created by Cj444 on 03.10.2016.
+ * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "workplan", schema = "truck_app", catalog = "")
-public class WorkplanEntity {
-    private int planId;
+@Table(name = "truckplan", schema = "mydb", catalog = "")
+public class TruckplanEntity {
+    private int id;
     private Timestamp begin;
     private Timestamp end;
+    private Collection<TruckHasTruckplanEntity> truckHasTruckplenById;
 
     @Id
-    @Column(name = "PlanId", nullable = false)
-    public int getPlanId() {
-        return planId;
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
     }
 
-    public void setPlanId(int planId) {
-        this.planId = planId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "Begin", nullable = true)
+    @Column(name = "Begin", nullable = false)
     public Timestamp getBegin() {
         return begin;
     }
@@ -34,7 +36,7 @@ public class WorkplanEntity {
     }
 
     @Basic
-    @Column(name = "End", nullable = true)
+    @Column(name = "End", nullable = false)
     public Timestamp getEnd() {
         return end;
     }
@@ -48,9 +50,9 @@ public class WorkplanEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        WorkplanEntity that = (WorkplanEntity) o;
+        TruckplanEntity that = (TruckplanEntity) o;
 
-        if (planId != that.planId) return false;
+        if (id != that.id) return false;
         if (begin != null ? !begin.equals(that.begin) : that.begin != null) return false;
         if (end != null ? !end.equals(that.end) : that.end != null) return false;
 
@@ -59,9 +61,18 @@ public class WorkplanEntity {
 
     @Override
     public int hashCode() {
-        int result = planId;
+        int result = id;
         result = 31 * result + (begin != null ? begin.hashCode() : 0);
         result = 31 * result + (end != null ? end.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "truckplanByTruckPlanId")
+    public Collection<TruckHasTruckplanEntity> getTruckHasTruckplenById() {
+        return truckHasTruckplenById;
+    }
+
+    public void setTruckHasTruckplenById(Collection<TruckHasTruckplanEntity> truckHasTruckplenById) {
+        this.truckHasTruckplenById = truckHasTruckplenById;
     }
 }

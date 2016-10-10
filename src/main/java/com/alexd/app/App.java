@@ -2,25 +2,33 @@ package com.alexd.app;
 
 
 
-import com.alexd.DAO.Drivers;
-import com.alexd.DAO.DriversDao;
-import com.alexd.DAO.GenericClass;
-import com.alexd.DAO.GenericDao;
-import com.alexd.model.DriversEntity;
+//import com.alexd.DAO.MapDao;
 
 
-public class App 
+import com.alexd.DAO.CargoDao;
+import com.alexd.DAO.DriverDao;
+import com.alexd.DAO.MapDao;
+import com.alexd.model.MapEntity;
+
+public class App
 {
 
 
     public static void main( String[] args )
     {
-        GenericDao a = new GenericClass();
-        a.setEm();
-        a.beginTransaction();
-        DriversEntity  b = (DriversEntity)a.findById(204);
-        System.out.print("Name: "+b.getName()+" Last name: "+b.getLastName());
-        a.closeEm();
+
+
+        CargoDao c = new CargoDao();
+       int id = c.addCargo("порошок", 15,0);
+
+
+        System.out.print(id);
+
+System.exit(0);
 
     }
+
+
+
+
 }

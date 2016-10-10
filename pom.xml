@@ -13,7 +13,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      <hibernate-version>5.2.2.Final</hibernate-version>
- </properties>
+
+
+</properties>
 
   <dependencies>
 
@@ -78,6 +80,7 @@
         <version>3.0.0</version>
 
       </plugin>
+
     </plugins>
   </build>
 </project>
