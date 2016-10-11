@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "orders", schema = "mydb", catalog = "")
+@Table(name = "orders", schema = "mydb" )
 public class OrdersEntity {
     private int id;
     private byte status;
@@ -26,6 +26,7 @@ public class OrdersEntity {
     private TrucksEntity trucksByTrucksId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

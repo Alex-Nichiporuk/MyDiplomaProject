@@ -21,6 +21,15 @@ public class PointDao extends GenericClass {
 
     }
 
+    private void setEntity(int id, int map_id , int path_id)
+    {
+        e = new PointEntity();
+        e.setMapId(map_id);
+        e.setPathId(path_id);
+        e.setId(id);
+
+    }
+
     public int addPoint(int map_id , int path_id)
     {
         setEntity(   map_id ,   path_id);
@@ -29,25 +38,13 @@ public class PointDao extends GenericClass {
     }
 
 
-    public void deletePoint(int map_id , int path_id)
-    {
-        setEntity(   map_id ,   path_id);
-        this.delete(e);
 
-    }
 
-    public void updatePoint(int map_id , int path_id)
+    public void updatePoint(int id, int map_id , int path_id)
     {
-        setEntity(  map_id ,   path_id);
+        setEntity( id,  map_id ,   path_id);
         this.update(e);
 
     }
 
-    public int findMaxId() {
-        return 0;
-    }
-
-    public Object findByMaxId() {
-        return null;
-    }
 }

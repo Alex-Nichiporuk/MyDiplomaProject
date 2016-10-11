@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "drivers_has_driver", schema = "mydb", catalog = "")
+@Table(name = "drivers_has_driver", schema = "mydb" )
 public class DriversHasDriverEntity {
     private int driversId;
     private int driverId;
@@ -47,6 +47,7 @@ public class DriversHasDriverEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

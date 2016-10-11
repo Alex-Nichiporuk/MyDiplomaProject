@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "driver_has_driversplan", schema = "mydb", catalog = "")
+@Table(name = "driver_has_driversplan", schema = "mydb" )
 public class DriverHasDriversplanEntity {
     private int driverId;
     private int driversPlanId;
@@ -35,6 +35,7 @@ public class DriverHasDriversplanEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

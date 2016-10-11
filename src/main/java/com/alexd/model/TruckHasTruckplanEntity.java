@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "truck_has_truckplan", schema = "mydb", catalog = "")
+@Table(name = "truck_has_truckplan", schema = "mydb" )
 public class TruckHasTruckplanEntity {
     private String truckId;
     private int truckPlanId;
@@ -35,6 +35,7 @@ public class TruckHasTruckplanEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

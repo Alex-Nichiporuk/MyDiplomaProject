@@ -20,6 +20,14 @@ public class DriverHasDriversplanDao extends GenericClass {
         e.setDriversPlanId(driversplan_id);
     }
 
+    private void setEntity(int id, int driver_id, int driversplan_id)
+    {
+        e = new DriverHasDriversplanEntity();
+        e.setDriverId(driver_id);
+        e.setDriversPlanId(driversplan_id);
+        e.setId(id);
+    }
+
     public int addDriverHasDriversplan(int driver_id, int driversplan_id)
     {
         setEntity(  driver_id,   driversplan_id);
@@ -28,16 +36,11 @@ public class DriverHasDriversplanDao extends GenericClass {
     }
 
 
-    public void deleteDriverHasDriversplan(int driver_id, int driversplan_id)
-    {
-        setEntity(  driver_id,   driversplan_id);
-        this.delete(e);
 
-    }
 
-    public void updateDriverHasDriversplan(int driver_id, int driversplan_id)
+    public void updateDriverHasDriversplan(int id, int driver_id, int driversplan_id)
     {
-        setEntity(  driver_id,   driversplan_id);
+        setEntity(  id,  driver_id,   driversplan_id);
         this.update(e);
 
     }
@@ -45,11 +48,4 @@ public class DriverHasDriversplanDao extends GenericClass {
 
 
 
-    public int findMaxId() {
-        return 0;
-    }
-
-    public Object findByMaxId() {
-        return null;
-    }
 }

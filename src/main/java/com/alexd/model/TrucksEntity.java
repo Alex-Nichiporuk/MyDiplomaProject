@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "trucks", schema = "mydb", catalog = "")
+@Table(name = "trucks", schema = "mydb" )
 public class TrucksEntity {
     private int id;
     private int countTrucks;
@@ -16,6 +16,7 @@ public class TrucksEntity {
     private Collection<TrucksHasTruckEntity> trucksHasTrucksById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

@@ -22,6 +22,14 @@ public class TrucksDao extends GenericClass {
         e.setCountTrucks(count);
     }
 
+    private void setEntity(int id, int count, int size)
+    {
+        e = new TrucksEntity();
+        e.setSize(size);
+        e.setCountTrucks(count);
+        e.setId(id);
+    }
+
     public int addTrucks(int count, int size)
     {
         setEntity(   count,   size);
@@ -30,25 +38,14 @@ public class TrucksDao extends GenericClass {
     }
 
 
-    public void deleteTrucks(int count, int size)
-    {
-        setEntity(   count,   size);
-        this.delete(e);
 
-    }
 
-    public void updateTrucks(int count, int size)
+    public void updateTrucks(int id, int count, int size)
     {
-        setEntity(   count,   size);
+        setEntity(id,   count,   size);
         this.update(e);
 
     }
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

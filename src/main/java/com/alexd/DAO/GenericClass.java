@@ -3,6 +3,8 @@ package com.alexd.DAO;
 
 import com.alexd.util.man.EntManager;
 
+import java.util.List;
+
 public abstract class GenericClass<T> implements GenericDao<T> {
 
     private final Class<T> type;
@@ -25,33 +27,23 @@ public abstract class GenericClass<T> implements GenericDao<T> {
         EntManager.getManager().merge(entity);
     }
 
-    public Object findById(int id) {
+    public Object findById(Object id) {
 
-        Object ent = EntManager.getManager().find(this.getMyType(),id);
-        return ent;
+        Object result = EntManager.getManager().find(this.getMyType(),id);
+        return result;
     }
 
-    public abstract Object findByMaxId();
 
 
-    public void delete(T entity) {
+
+    public void delete(Object id) {
+        T entity = (T)this.findById(id);
         EntManager.getManager().remove(entity);
         }
 
 
 
 
-    public  void beginTransaction() {
-        EntManager.getManager().getTransaction().begin();
-    }
-
-    public  void closeEm() {
-        EntManager.getManager().close();
-    }
-
-    public  void commitTransaction() {
-        EntManager.getManager().getTransaction().commit();
-    }
 
 
 

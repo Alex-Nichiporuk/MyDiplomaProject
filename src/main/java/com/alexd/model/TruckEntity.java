@@ -7,11 +7,11 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "truck", schema = "mydb", catalog = "")
+@Table(name = "truck", schema = "mydb" )
 public class TruckEntity {
     private String id;
     private float size;
-    private byte status;
+    private boolean status;
     private Integer driverDesc;
     private int mapId;
     private Collection<DriversEntity> driversesById;
@@ -41,11 +41,11 @@ public class TruckEntity {
 
     @Basic
     @Column(name = "Status", nullable = false)
-    public byte getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(byte status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -89,7 +89,7 @@ public class TruckEntity {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (int)size;
-        result = 31 * result + (int) status;
+        result = 31 * result;
         result = 31 * result + (driverDesc != null ? driverDesc.hashCode() : 0);
         result = 31 * result + mapId;
         return result;

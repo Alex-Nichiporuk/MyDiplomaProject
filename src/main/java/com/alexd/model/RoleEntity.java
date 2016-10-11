@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "role", schema = "mydb", catalog = "")
+@Table(name = "role", schema = "mydb" )
 public class RoleEntity {
     private int id;
     private String name;
@@ -15,6 +15,7 @@ public class RoleEntity {
     private Collection<UserEntity> usersById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

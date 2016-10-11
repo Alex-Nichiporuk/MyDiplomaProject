@@ -8,7 +8,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "time", schema = "mydb", catalog = "")
+@Table(name = "time", schema = "mydb" )
 public class TimeEntity {
     private int id;
     private Timestamp begin;
@@ -16,6 +16,7 @@ public class TimeEntity {
     private Collection<OrdersEntity> ordersById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

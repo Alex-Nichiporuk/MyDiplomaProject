@@ -21,6 +21,14 @@ public class RoleDao extends GenericClass {
         e.setPriv(priv);
     }
 
+    private void setEntity(int id, String name , byte priv)
+    {
+        e = new RoleEntity();
+        e.setName(name);
+        e.setPriv(priv);
+        e.setId(id);
+    }
+
     public int addRole(String name , byte priv)
     {
         setEntity(   name ,   priv);
@@ -29,26 +37,14 @@ public class RoleDao extends GenericClass {
     }
 
 
-    public void deleteRole(String name , byte priv)
-    {
-        setEntity(   name ,   priv);
-        this.delete(e);
 
-    }
 
-    public void updateRole(String name , byte priv)
+    public void updateRole(int id , String name , byte priv)
     {
-        setEntity(  name ,   priv);
+        setEntity(id,  name ,   priv);
         this.update(e);
 
     }
 
 
-    public int findMaxId() {
-        return 0;
-    }
-
-    public Object findByMaxId() {
-        return null;
-    }
 }

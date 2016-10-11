@@ -26,6 +26,16 @@ public class MapDao extends GenericClass {
         e.setLatitude(latitude);
         e.setLongitude(longitude);
     }
+
+    private void setEntity(int id, String name, float latitude, float longitude)
+    {
+        e = new MapEntity();
+        e.setCity(name);
+        e.setLatitude(latitude);
+        e.setLongitude(longitude);
+        e.setId(id);
+    }
+
     public int addMap(String name, float latitude, float longitude)
     {
         setEntity(  name,   latitude,   longitude);
@@ -34,16 +44,11 @@ public class MapDao extends GenericClass {
     }
 
 
-    public void deleteMap(String name, float latitude, float longitude)
-    {
-        setEntity(   name,   latitude,   longitude);
-        this.delete(e);
 
-    }
 
-    public void updateMap(String name, float latitude, float longitude)
+    public void updateMap(int id, String name, float latitude, float longitude)
     {
-        setEntity(  name,   latitude,   longitude);
+        setEntity(id,  name,   latitude,   longitude);
         this.update(e);
     }
 
@@ -63,15 +68,4 @@ public class MapDao extends GenericClass {
        return mapEntity;
    }
 
-
-
-
-    public int findMaxId() {
-        return 0;
-    }
-
-    @Override
-    public Object findByMaxId() {
-        return null;
-    }
 }

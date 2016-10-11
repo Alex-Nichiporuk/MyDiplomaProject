@@ -8,7 +8,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "truckplan", schema = "mydb", catalog = "")
+@Table(name = "truckplan", schema = "mydb" )
 public class TruckplanEntity {
     private int id;
     private Timestamp begin;
@@ -16,6 +16,7 @@ public class TruckplanEntity {
     private Collection<TruckHasTruckplanEntity> truckHasTruckplenById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

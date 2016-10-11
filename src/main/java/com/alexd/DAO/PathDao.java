@@ -20,6 +20,11 @@ public class PathDao extends GenericClass {
     {
         e.setLength(length);
     }
+    private void setEntity(int id , double length)
+    {
+        e.setLength(length);
+        e.setId(id);
+    }
 
     public int addPath(double length)
     {
@@ -29,29 +34,14 @@ public class PathDao extends GenericClass {
     }
 
 
-    public void deletePath(double length)
-    {
-        setEntity(   length);
-        this.delete(e);
 
-    }
 
-    public void updatePath(double length)
+    public void updatePath(int id ,double length)
     {
-        setEntity(length);
+        setEntity(id ,length);
         this.update(e);
 
     }
 
 
-
-
-
-    public int findMaxId() {
-        return 0;
-    }
-
-    public Object findByMaxId() {
-        return null;
-    }
 }

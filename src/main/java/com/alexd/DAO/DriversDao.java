@@ -20,6 +20,14 @@ public class DriversDao extends GenericClass {
         e.setSize(size);
         e.setTruckId(truck);
     }
+
+    private void setEntity(int id , int size, String truck)
+    {
+        e = new DriversEntity();
+        e.setSize(size);
+        e.setTruckId(truck);
+        e.setId(id);
+    }
     public int addDrivers(int size, String truck)
     {
         setEntity(   size,   truck);
@@ -28,16 +36,11 @@ public class DriversDao extends GenericClass {
     }
 
 
-    public void deleteDrivers(int size, String truck)
-    {
-        setEntity(   size,   truck);
-        this.delete(e);
 
-    }
 
-    public void updateDrivers(int size, String truck)
+    public void updateDriver(int id , int size, String truck)
     {
-        setEntity(   size,   truck);
+        setEntity( id ,  size,   truck);
         this.update(e);
 
     }

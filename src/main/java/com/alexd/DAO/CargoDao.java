@@ -21,6 +21,18 @@ public class CargoDao extends GenericClass {
         e.setStatus(status);
     }
 
+    private void setEntity(int id, String name, double weight, int status)
+    {
+        e = new CargoEntity();
+        e.setName(name);
+        e.setWeight(weight);
+        e.setStatus(status);
+        e.setId(id);
+    }
+
+
+
+
     public int addCargo(String name, double weight, int status)
     {
         setEntity(name, weight, status);
@@ -29,25 +41,13 @@ public class CargoDao extends GenericClass {
     }
 
 
-    public void deleteCargo(String name, double weight, int status)
-    {
-        setEntity(name, weight, status);
-        this.delete(e);
 
-    }
-
-    public void updateCargo(String name, double weight, int status)
+    public void updateCargo(int id , String name, double weight, int status)
     {
-        setEntity(name, weight, status);
+        setEntity(  id ,   name,   weight,   status);
         this.update(e);
 
     }
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

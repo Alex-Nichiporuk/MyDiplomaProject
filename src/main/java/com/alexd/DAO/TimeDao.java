@@ -25,6 +25,16 @@ public class TimeDao extends GenericClass {
 
     }
 
+    private void setEntity(int id, java.sql.Timestamp begin , java.sql.Timestamp end)
+    {
+
+        e = new TimeEntity();
+        e.setBegin(begin);
+        e.setEnd(end);
+        e.setId(id);
+
+    }
+
     public int addTime(java.sql.Timestamp begin , java.sql.Timestamp end)
     {
         setEntity(  begin ,  end);
@@ -33,25 +43,14 @@ public class TimeDao extends GenericClass {
     }
 
 
-    public void deleteTime(java.sql.Timestamp begin , java.sql.Timestamp end)
-    {
-        setEntity(  begin ,   end);
-        this.delete(e);
 
-    }
 
-    public void updateTime(java.sql.Timestamp begin , java.sql.Timestamp end)
+    public void updateTime(int id, java.sql.Timestamp begin , java.sql.Timestamp end)
     {
-        setEntity( begin ,   end);
+        setEntity( id ,begin ,   end);
         this.update(e);
 
     }
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

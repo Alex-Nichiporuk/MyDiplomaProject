@@ -19,6 +19,13 @@ public class TruckplanDao extends GenericClass {
         e.setBegin(begin);
         e.setEnd(end);
     }
+
+    private void setEntity(int id, java.sql.Timestamp begin , java.sql.Timestamp end) {
+        e = new TruckplanEntity();
+        e.setBegin(begin);
+        e.setEnd(end);
+        e.setId(id);
+    }
     public int addTruckplan(java.sql.Timestamp begin , java.sql.Timestamp end)
     {
         setEntity(   begin ,   end);
@@ -27,26 +34,15 @@ public class TruckplanDao extends GenericClass {
     }
 
 
-    public void deleteTruckplan(java.sql.Timestamp begin , java.sql.Timestamp end)
-    {
-        setEntity(   begin ,   end);
-        this.delete(e);
 
-    }
 
-    public void updateTruckplan(java.sql.Timestamp begin , java.sql.Timestamp end)
+    public void updateTruckplan(int id, java.sql.Timestamp begin , java.sql.Timestamp end)
     {
-        setEntity(   begin ,  end);
+        setEntity(id,   begin ,  end);
         this.update(e);
 
     }
 
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

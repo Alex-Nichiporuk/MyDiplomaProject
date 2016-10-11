@@ -8,7 +8,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "driver", schema = "mydb", catalog = "")
+@Table(name = "driver", schema = "mydb" )
 public class DriverEntity {
     private int id;
     private String name;
@@ -22,6 +22,7 @@ public class DriverEntity {
     private Collection<DriversHasDriverEntity> driversHasDriversById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

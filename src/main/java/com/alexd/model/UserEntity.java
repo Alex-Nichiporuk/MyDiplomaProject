@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "user", schema = "mydb", catalog = "")
+@Table(name = "user", schema = "mydb" )
 public class UserEntity {
     private int id;
     private String login;
@@ -17,6 +17,7 @@ public class UserEntity {
     private RoleEntity roleByRoleId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

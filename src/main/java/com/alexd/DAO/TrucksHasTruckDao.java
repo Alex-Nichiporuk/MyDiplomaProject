@@ -20,6 +20,14 @@ public class TrucksHasTruckDao extends GenericClass{
         e.setTrucksId(trucks_id);
     }
 
+    private void setEntity(int id, String truck_id, int trucks_id)
+    {
+        e = new TrucksHasTruckEntity();
+        e.setTruckId(truck_id);
+        e.setTrucksId(trucks_id);
+        e.setId(id);
+    }
+
     public int addCargoTrucksHasTruck(String truck_id, int trucks_id)
     {
         setEntity(  truck_id,   trucks_id);
@@ -28,28 +36,16 @@ public class TrucksHasTruckDao extends GenericClass{
     }
 
 
-    public void deleteTrucksHasTruck(String truck_id, int trucks_id)
-    {
-        setEntity(  truck_id,   trucks_id);
-        this.delete(e);
 
-    }
 
-    public void updateTrucksHasTruck(String truck_id, int trucks_id)
+    public void updateTrucksHasTruck(int id, String truck_id, int trucks_id)
     {
-        setEntity(  truck_id,   trucks_id);
+        setEntity( id, truck_id,   trucks_id);
         this.update(e);
 
     }
-    
 
 
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

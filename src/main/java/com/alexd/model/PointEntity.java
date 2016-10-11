@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "point", schema = "mydb", catalog = "")
+@Table(name = "point", schema = "mydb" )
 public class PointEntity {
     private int id;
     private int mapId;
@@ -17,6 +17,7 @@ public class PointEntity {
     private Collection<PointHasCargoEntity> pointHasCargosById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

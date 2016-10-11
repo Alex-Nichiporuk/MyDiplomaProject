@@ -27,6 +27,16 @@ public class PointHasCargoDao extends GenericClass {
         e.setDate(date);
     }
 
+    private void setEntity(int id, int cargo_id, int point_id, byte status, Timestamp date)
+    {
+        e = new PointHasCargoEntity();
+        e.setCargoId(cargo_id);
+        e.setPointId(point_id);
+        e.setStatus(status);
+        e.setDate(date);
+        e.setId(id);
+    }
+
     public int addPointHasCargo(int cargo_id, int point_id, byte status, Timestamp date)
     {
         setEntity(   cargo_id,   point_id,   status,   date);
@@ -35,25 +45,14 @@ public class PointHasCargoDao extends GenericClass {
     }
 
 
-    public void deletePointHasCargo(int cargo_id, int point_id, byte status, Timestamp date)
-    {
-        setEntity(   cargo_id,   point_id,   status,   date);
-        this.delete(e);
 
-    }
 
-    public void updatePointHasCargo(int cargo_id, int point_id, byte status, Timestamp date)
+    public void updatePointHasCargo(int id, int cargo_id, int point_id, byte status, Timestamp date)
     {
-        setEntity(   cargo_id,   point_id,   status,   date );
+        setEntity(  id, cargo_id,   point_id,   status,   date );
         this.update(e);
 
     }
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

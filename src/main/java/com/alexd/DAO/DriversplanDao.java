@@ -21,6 +21,13 @@ public class DriversplanDao extends GenericClass {
         driversplanEntity.setEnd(end);
     }
 
+    private void setEntity(int id, java.sql.Timestamp begin , java.sql.Timestamp end) {
+        driversplanEntity = new DriversplanEntity();
+        driversplanEntity.setBegin(begin);
+        driversplanEntity.setEnd(end);
+        driversplanEntity.setId(id);
+    }
+
     public int addDriversplan(java.sql.Timestamp begin , java.sql.Timestamp end)
     {
         setEntity(     begin ,   end);
@@ -29,26 +36,15 @@ public class DriversplanDao extends GenericClass {
     }
 
 
-    public void deleteDriversplan(java.sql.Timestamp begin , java.sql.Timestamp end)
-    {
-        setEntity(  begin ,   end);
-        this.delete(driversplanEntity);
 
-    }
 
-    public void updateDriversplan(java.sql.Timestamp begin , java.sql.Timestamp end)
+    public void updateDrivers(int id ,java.sql.Timestamp begin , java.sql.Timestamp end)
     {
-        setEntity( begin ,  end);
+        setEntity(id, begin ,  end);
         this.update(driversplanEntity);
 
     }
 
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }

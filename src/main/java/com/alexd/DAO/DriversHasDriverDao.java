@@ -23,6 +23,15 @@ public class DriversHasDriverDao extends GenericClass {
         e.setWorkTime(worktime);
     }
 
+    private void setEntity(int id,int driver_id, int drivers_id, Timestamp worktime)
+    {
+        e = new DriversHasDriverEntity();
+        e.setDriverId(driver_id);
+        e.setDriversId(drivers_id);
+        e.setWorkTime(worktime);
+        e.setId(id);
+    }
+
     public int addDriversHasDrive(int driver_id, int drivers_id, Timestamp worktime)
     {
         setEntity(  driver_id,   drivers_id,   worktime);
@@ -31,16 +40,11 @@ public class DriversHasDriverDao extends GenericClass {
     }
 
 
-    public void deleteDriversHasDrive(int driver_id, int drivers_id, Timestamp worktime)
-    {
-        setEntity(  driver_id,   drivers_id,   worktime);
-        this.delete(e);
 
-    }
 
-    public void updateDriversHasDrive(int driver_id, int drivers_id, Timestamp worktime)
+    public void updateDriversHasDrive(int id,int driver_id, int drivers_id, Timestamp worktime)
     {
-        setEntity(  driver_id,   drivers_id,   worktime);
+        setEntity(  id,driver_id,   drivers_id,   worktime);
         this.update(e);
 
     }

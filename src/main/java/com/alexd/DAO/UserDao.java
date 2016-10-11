@@ -24,6 +24,17 @@ public class UserDao extends GenericClass {
         e.setRoleId(role);
     }
 
+    private void setEntity(int id, String login, String password, String name, String lastname, int role)
+    {
+        e = new UserEntity();
+        e.setName(name);
+        e.setLastName(lastname);
+        e.setLogin(login);
+        e.setPassword(password);
+        e.setRoleId(role);
+        e.setId(id);
+    }
+
     public int addUser(String login, String password, String name, String lastname, int role)
     {
         setEntity(   login,   password,   name,   lastname,   role);
@@ -32,27 +43,16 @@ public class UserDao extends GenericClass {
     }
 
 
-    public void deleteUser(String login, String password, String name, String lastname, int role)
-    {
-        setEntity(  login,   password,   name,   lastname,   role);
-        this.delete(e);
 
-    }
 
-    public void updateUser(String login, String password, String name, String lastname, int role)
+    public void updateUser(int id , String login, String password, String name, String lastname, int role)
     {
-        setEntity(   login,   password,   name,   lastname,   role);
+        setEntity( id,  login,   password,   name,   lastname,   role);
         this.update(e);
 
     }
 
-    public int findMaxId() {
-        return 0;
-    }
 
-    public Object findByMaxId() {
-        return null;
-    }
 }
 
 

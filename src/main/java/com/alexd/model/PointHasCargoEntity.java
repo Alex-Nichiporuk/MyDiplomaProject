@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "point_has_cargo", schema = "mydb", catalog = "")
+@Table(name = "point_has_cargo", schema = "mydb" )
 public class PointHasCargoEntity {
     private int id;
     private int pointId;
@@ -18,6 +18,7 @@ public class PointHasCargoEntity {
     private CargoEntity cargoByCargoId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

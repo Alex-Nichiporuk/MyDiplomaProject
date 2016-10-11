@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by Cj444 on 09.10.2016.
  */
 @Entity
-@Table(name = "path", schema = "mydb", catalog = "")
+@Table(name = "path", schema = "mydb" )
 public class PathEntity {
     private int id;
     private double length;
@@ -15,6 +15,7 @@ public class PathEntity {
     private Collection<PointEntity> pointsById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
