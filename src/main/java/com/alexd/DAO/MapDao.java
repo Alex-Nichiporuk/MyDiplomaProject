@@ -11,6 +11,7 @@ import java.sql.ResultSet;
  */
 public class MapDao extends GenericClass {
 
+    MapEntity e;
    public MapDao()
    {
        super(MapEntity.class);
@@ -18,30 +19,35 @@ public class MapDao extends GenericClass {
 
 
 
-
-
-
-
-public boolean addCity(String name, float latitude, float longitude)
-{
-    try{
-
-       MapEntity e = new MapEntity();
+    private void setEntity(String name, float latitude, float longitude)
+    {
+        e = new MapEntity();
         e.setCity(name);
         e.setLatitude(latitude);
         e.setLongitude(longitude);
-        this.beginTransaction();
-        this.insert(e);
-        this.commitTransaction();
     }
-    catch (Exception e)
+    public int addMap(String name, float latitude, float longitude)
     {
-    return false;
+        setEntity(  name,   latitude,   longitude);
+        this.insert(e);
+        return e.getId();
     }
-    return true;
 
 
-}
+    public void deleteMap(String name, float latitude, float longitude)
+    {
+        setEntity(   name,   latitude,   longitude);
+        this.delete(e);
+
+    }
+
+    public void updateMap(String name, float latitude, float longitude)
+    {
+        setEntity(  name,   latitude,   longitude);
+        this.update(e);
+    }
+
+
    public MapEntity findByName(String name)
    {
        String queryText = "SELECT *  FROM mydb.map WHERE City = '"+name+"';";

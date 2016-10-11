@@ -34,9 +34,11 @@ public abstract class GenericClass<T> implements GenericDao<T> {
     public abstract Object findByMaxId();
 
 
-    public void delete(Object entity) {
+    public void delete(T entity) {
         EntManager.getManager().remove(entity);
         }
+
+
 
 
     public  void beginTransaction() {

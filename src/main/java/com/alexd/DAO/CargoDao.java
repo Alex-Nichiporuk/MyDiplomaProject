@@ -7,33 +7,41 @@ import com.alexd.model.CargoEntity;
  */
 public class CargoDao extends GenericClass {
 
+    CargoEntity e;
+
     public CargoDao() {
         super( CargoEntity.class);
     }
 
+    private void setEntity(String name, double weight, int status)
+    {
+        e = new CargoEntity();
+        e.setName(name);
+        e.setWeight(weight);
+        e.setStatus(status);
+    }
 
     public int addCargo(String name, double weight, int status)
     {
-        CargoEntity e = new CargoEntity();
-
-        try{
-
-            e.setName(name);
-            e.setWeight(weight);
-            e.setStatus(status);
-            this.beginTransaction();
+        setEntity(name, weight, status);
             this.insert(e);
-            this.commitTransaction();
-        }
-        catch (Exception exc)
-        {
-            return -1;
-        }
-        return e.getId();
+             return e.getId();
+    }
 
+
+    public void deleteCargo(String name, double weight, int status)
+    {
+        setEntity(name, weight, status);
+        this.delete(e);
 
     }
 
+    public void updateCargo(String name, double weight, int status)
+    {
+        setEntity(name, weight, status);
+        this.update(e);
+
+    }
 
     public int findMaxId() {
         return 0;
