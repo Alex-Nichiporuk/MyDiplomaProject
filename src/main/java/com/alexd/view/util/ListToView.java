@@ -45,5 +45,18 @@ public class ListToView {
         return result;
     }
 
+    public static ArrayList<CheckCargoView> listToCargoCheck(List<Object[]> a)
+    {
+        ArrayList<CheckCargoView> result = new ArrayList<CheckCargoView>();
+        for(Object[] b : a) {
+            result.add(new CheckCargoView());
+            result.get(result.size()-1).setCargo_id((Integer)b[0]);
+            result.get(result.size()-1).setStatus((Boolean)b[1]);
+            result.get(result.size()-1).setPoint_id((Integer)b[2]);
+               }
+        return result;
+    }
+
+
 
 }

@@ -2,9 +2,7 @@ package com.alexd.DAO;
 
 import com.alexd.model.CargoEntity;
 
-/**
- * Created by Cj444 on 10.10.2016.
- */
+
 public class CargoDao extends GenericClass {
 
     CargoEntity e;
