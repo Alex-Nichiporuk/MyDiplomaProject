@@ -9,25 +9,7 @@
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="dialect">org.hibernate.dialect.MySQL57InnoDBDialect</property>
     <property name="hbm2ddl.auto">update</property>
-    <mapping class="com.alexd.model.CargoEntity"/>
-    <mapping class="com.alexd.model.DriverEntity"/>
-    <mapping class="com.alexd.model.DriverHasDriversplanEntity"/>
-    <mapping class="com.alexd.model.DriversEntity"/>
-    <mapping class="com.alexd.model.DriversHasDriverEntity"/>
-    <mapping class="com.alexd.model.DriversplanEntity"/>
-    <mapping class="com.alexd.model.MapEntity"/>
-    <mapping class="com.alexd.model.OrdersEntity"/>
-    <mapping class="com.alexd.model.PathEntity"/>
-    <mapping class="com.alexd.model.PointEntity"/>
-    <mapping class="com.alexd.model.PointHasCargoEntity"/>
-    <mapping class="com.alexd.model.RoleEntity"/>
-    <mapping class="com.alexd.model.TimeEntity"/>
-    <mapping class="com.alexd.model.TruckEntity"/>
-    <mapping class="com.alexd.model.TruckHasTruckplanEntity"/>
-    <mapping class="com.alexd.model.TruckplanEntity"/>
-    <mapping class="com.alexd.model.TrucksEntity"/>
-    <mapping class="com.alexd.model.TrucksHasTruckEntity"/>
-    <mapping class="com.alexd.model.UserEntity"/>
+
 
 
     <!-- DB schema will be updated if needed -->

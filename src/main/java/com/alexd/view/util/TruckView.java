@@ -9,54 +9,43 @@ public class TruckView {
     boolean status;
     int driverdesc;
     int map_id;
+    String city;
+    boolean busyStatus;
+
+    public TruckView(TruckEntity truckEntity)
+    {
+        id = truckEntity.getId();
+        size = truckEntity.getSize();
+        status = truckEntity.getStatus();
+        busyStatus = truckEntity.getBusyStatus();
+        driverdesc = truckEntity.getDriverdesc();
+        map_id = truckEntity.getMapId();
+        city = truckEntity.getMapByMapId().getCity();
+    }
 
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    String city;
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public float getSize() {
         return size;
     }
 
-    public void setSize(float size) {
-        this.size = size;
-    }
-
     public boolean getStatus() {
         return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public int getDriverdesc() {
         return driverdesc;
     }
 
-    public void setDriverdesc(int driverdesc) {
-        this.driverdesc = driverdesc;
-    }
-
     public int getMap_id() {
         return map_id;
     }
 
-    public void setMap_id(int map_id) {
-        this.map_id = map_id;
-    }
+
 }

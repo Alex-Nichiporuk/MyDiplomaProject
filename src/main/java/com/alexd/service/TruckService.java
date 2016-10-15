@@ -1,7 +1,6 @@
 package com.alexd.service;
 
 import com.alexd.DAO.TruckDao;
-import com.alexd.util.man.EntManager;
 import com.alexd.view.util.TruckView;
 
 import javax.persistence.EntityManager;
@@ -11,37 +10,29 @@ import java.util.List;
 /**
  * Created by Cj444 on 11.10.2016.
  */
-public class TruckService {
+public class TruckService implements TruckServiceImpl{
     EntityManager em;
     TruckDao truckDao;
     public TruckService()
     {
-        em = EntManager.getManager();
-        truckDao = new TruckDao();
+                 truckDao = new TruckDao();
     }
 
 
-    public String addTruck(String id, int size, int city, boolean status)
+    public String addTruck(String id, int size, int city, boolean status, int driversize)
     {
-    String truck_id;
-        try {
-            em.getTransaction().begin();
-            truck_id =   truckDao.addTruck(id, size, status,city);
-            em.getTransaction().commit();
 
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-        return  truck_id;
+        TruckEntity truckEntity = new TruckEntity(id, size,status, city, driversize );
+        GenericService<TruckEntity>genericService = new GenericService<TruckEntity>();
+        genericService.add(truckEntity);
+        return  truckEntity.getId();
     }
 
-    public boolean updateTruck(String id, int size, int city, boolean status)
+    public boolean updateTruck(String id, int size, int city, boolean status, int driversize)
     {
         try {
             em.getTransaction().begin();
-            truckDao.updateTruck(id,size,status,city);
+            truckDao.update(new TruckEntity(id, size,status, city, driversize ));
             em.getTransaction().commit();
         }
         catch (Exception e)
@@ -51,14 +42,14 @@ public class TruckService {
         return true;
     }
 
-    public ArrayList selectAll()
+    private List<TruckEntity> selectAlldao()
     {
         try {
             em.getTransaction().begin();
-            List<TruckView> resultQuery = truckDao.selectAll(em);
+            List<TruckEntity> resultQuery = truckDao.selectAll(em);
             em.getTransaction().commit();
-            ArrayList<TruckView> result = new ArrayList(resultQuery);
-            return result;
+
+            return resultQuery;
         }
         catch (Exception e)
         {
@@ -67,5 +58,18 @@ public class TruckService {
 
 
     }
+
+    public ArrayList<TruckView> selectAll()
+    {
+        ArrayList<TruckView> truckViews = new ArrayList<TruckView>();
+        List<TruckEntity> truckEntities = selectAlldao();
+        for(TruckEntity truckEntity : truckEntities)
+        {
+            truckViews.add(new TruckView(truckEntity));
+        }
+        return truckViews;
+    }
+
+
 
 }

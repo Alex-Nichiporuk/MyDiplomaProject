@@ -7,12 +7,26 @@
 
 <persistence-unit name="truckApp" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <class>com.alexd.model.CargoEntity</class>
+    <class>com.alexd.model.DriverEntity</class>
+    <class>com.alexd.model.DriversdescEntity</class>
+    <class>com.alexd.model.DriversplanEntity</class>
+    <class>com.alexd.model.MapEntity</class>
+    <class>com.alexd.model.OrdersEntity</class>
+    <class>com.alexd.model.PathEntity</class>
+    <class>com.alexd.model.PointEntity</class>
+    <class>com.alexd.model.PointHasCargoEntity</class>
+    <class>com.alexd.model.RoleEntity</class>
+    <class>com.alexd.model.TimeEntity</class>
+    <class>com.alexd.model.TruckEntity</class>
+    <class>com.alexd.model.TruckplanEntity</class>
+    <class>com.alexd.model.UserEntity</class>
 
     <properties>
         <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
         <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb"/>
-        <property name="hibernate.connection.username" value="root"/>
-        <property name="hibernate.connection.password" value="123qwe"/>
+        <property name="hibernate.connection.username"/>
+        <property name="hibernate.connection.password"/>
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57InnoDBDialect"/>
         <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>

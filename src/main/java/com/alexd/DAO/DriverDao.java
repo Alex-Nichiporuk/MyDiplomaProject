@@ -1,73 +1,22 @@
 package com.alexd.DAO;
 
 
-import com.alexd.model.DriverEntity;
-import com.alexd.util.man.EntManager;
-import com.alexd.view.util.DriverView;
-import com.alexd.view.util.ListToView;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.metamodel.ListAttribute;
-import java.sql.Time;
+import javax.persistence.TypedQuery;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Cj444 on 08.10.2016.
  */
-public class DriverDao  extends GenericClass {
+public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl{
     DriverEntity e;
 
-        public DriverDao() {
+   public DriverDao() {
             super(DriverEntity.class);
         }
 
-
-
-
-
-    private void setEntity(String name, String lastname, int city)
-    {
-
-         e = new DriverEntity();
-        e.setName(name);
-        e.setLastName(lastname);
-        e.setStatus(0);
-        e.setMapId(city);
-        e.setTimeStatus(new Timestamp(1000l));
-    }
-
-    private void setEntity(int id, String name, String lastname, int city)
-    {
-        e = new DriverEntity();
-        e.setName(name);
-        e.setLastName(lastname);
-        e.setStatus(0);
-        e.setMapId(city);
-        e.setId(id);
-        e.setTimeStatus(new Timestamp(1000l));
-
-    }
-
-
-    public int addDriver(String name, String lastname, int city)
-    {
-        setEntity( name,  lastname,  city);
-        this.insert(e);
-        return e.getId();
-    }
-
-
-
-
-    public void updateDriver(int id, String name, String lastname, int city)
-    {
-        setEntity(id, name,  lastname,  city);
-        this.update(e);
-
-    }
 
     public void updateTime(int id, Timestamp ts)
     {
@@ -77,14 +26,35 @@ public class DriverDao  extends GenericClass {
         this.update(e);
     }
 
-    public ArrayList<DriverView> selectAll(EntityManager em)
+    public List<DriverEntity>selectAll(EntityManager em)
     {
-        String query = "SELECT  d.id, d.map_id, d.name , d.lastname, d.current_truck, d.time_status, m.city, d.status  FROM Driver d JOIN Map m ON d.map_id = m.id  ;";
-       Query resultQuery = em.createNativeQuery(query);
-      List<Object[]> a =  resultQuery.getResultList();
+        TypedQuery<DriverEntity> q = em.createQuery("select  d FROM DriverEntity as d" ,DriverEntity.class);
+      List<DriverEntity> result =  q.getResultList();
+  return result;
 
-       return ListToView.listToDriverList(a);
+    }
 
+    public HashMap<Integer , String>getCodriver(int order, EntityManager em)
+    {
+        String query = "select  d FROM DriverEntity as d , DriversDescEntity as de, OrdersEntity as o WHERE d.id=de.driverId AND de.driversId = o.driversId AND o.id="+order;
+        TypedQuery<DriverEntity> q = em.createQuery( query ,DriverEntity.class);
+        List<DriverEntity> result =  q.getResultList();
+        HashMap<Integer , String> resultMap = new HashMap<Integer, String>();
+        for(DriverEntity a:result)
+        {
+            resultMap.put(a.getId(),a.getLastName()+" "+a.getName());
+        }
+        return resultMap;
+
+
+    }
+
+    public OrdersEntity getOrder ( int driverId, EntityManager em)
+    {
+        String query = "select  o from OrdersEntity AS o, DriversDescEntity  as de, DriverEntity  as d WHERE o.driversId=de.driversId AND de.driverId = d.id AND o.status = false AND d.id="+driverId;
+        TypedQuery<OrdersEntity> q = em.createQuery( query ,OrdersEntity.class);
+        List<OrdersEntity> result =  q.getResultList();
+        return result.get(0);
     }
 
 

@@ -3,14 +3,14 @@ package com.alexd.DAO;
 
 import com.alexd.util.man.EntManager;
 
-import java.util.List;
-
-public abstract class GenericClass<T> implements GenericDao<T> {
-
-    private final Class<T> type;
 
 
+public  class GenericClass<T> implements GenericDao<T> {
 
+    private  Class<T> type = null;
+
+
+ public    GenericClass() { }
      GenericClass(Class<T> type) {
         this.type = type;
     }
@@ -20,25 +20,26 @@ public abstract class GenericClass<T> implements GenericDao<T> {
     }
 
     public void insert(T entity) {
-        EntManager.getManager().persist(entity);
+        EntManager.getManager().createEntityManager().persist(entity);
     }
 
     public void update(T entity) {
-        EntManager.getManager().merge(entity);
+        EntManager.getManager().createEntityManager().merge(entity);
     }
 
     public Object findById(Object id) {
 
-        Object result = EntManager.getManager().find(this.getMyType(),id);
+        Object result = EntManager.getManager().createEntityManager().find(this.getMyType(),id);
         return result;
     }
 
 
 
 
+
     public void delete(Object id) {
         T entity = (T)this.findById(id);
-        EntManager.getManager().remove(entity);
+        EntManager.getManager().createEntityManager().remove(entity);
         }
 
 

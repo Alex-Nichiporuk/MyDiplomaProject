@@ -1,64 +1,46 @@
 package com.alexd.DAO;
 
-import com.alexd.model.TruckEntity;
-import com.alexd.view.util.ListToView;
 import com.alexd.view.util.TruckView;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Cj444 on 10.10.2016.
  */
-public class TruckDao extends GenericClass {
-    TruckEntity e;
+public class TruckDao extends GenericClass<TruckEntity> implements TruckImpl {
+
     public TruckDao() {
         super( TruckEntity.class);
     }
 
 
-
-
-
-    private void setEntity(String id, int size, boolean status, int city)
+    public List<TruckEntity>selectAll(EntityManager em)
     {
-        e = new TruckEntity();
-        e.setMapId(city);
-        e.setId(id);
-        e.setSize(size);
-        e.setStatus(status);
+        TypedQuery<TruckEntity> q = em.createQuery("select  t FROM TruckEntity as t" ,TruckEntity.class);
+        List<TruckEntity> result =  q.getResultList();
+        return result;
+
     }
 
 
-
-    public String addTruck(String id, int size, boolean status, int city)
+    public ArrayList<TruckView>selectCheckedTrucks(EntityManager em, float weight)
     {
-        setEntity(   id,   size,   status,   city);
-        this.insert(e);
-        return e.getId();
+
+        String query = "SELECT t FROM TruckEntity AS t WHERE  t.status = true AND t.busyStatus = false AND t.size >="+weight;
+        TypedQuery<TruckEntity> q = em.createQuery(query,TruckEntity.class);
+        List<TruckEntity> result = q.getResultList();
+        ArrayList<TruckView> truckResult = new ArrayList<TruckView>();
+        for(TruckEntity a : result)
+        {
+            truckResult.add(new TruckView(a));
+        }
+return truckResult;
     }
 
 
-
-
-    public void updateTruck(String id, int size, boolean status, int city)
-    {
-        setEntity(   id,   size,   status,   city);
-        this.update(e);
-
-    }
-
-    public ArrayList<TruckView> selectAll(EntityManager em)
-    {
-        String query = "SELECT  t.id,  t.size, t.status, t.driver_desc, t.map_id, m.city FROM Truck t JOIN Map m ON t.map_id = m.id  ;";
-        Query resultQuery = em.createNativeQuery(query);
-        List<Object[]> a =  resultQuery.getResultList();
-
-        return ListToView.listToTruckList(a);
-
-    }
 
 
 

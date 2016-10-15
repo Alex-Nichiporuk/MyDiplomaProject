@@ -10,20 +10,20 @@ import javax.persistence.Persistence;
 public class EntManager {
 
 static EntityManagerFactory entityManagerFactory;
-  static EntityManager em;
 
 
-public static EntityManager getManager()
+
+public static EntityManagerFactory getManager()
 {
-    if(em != null)
+    if(entityManagerFactory != null)
     {
-        return em;
+        return entityManagerFactory;
     }
     else
     {
         entityManagerFactory = Persistence.createEntityManagerFactory("truckApp");
-         em = entityManagerFactory.createEntityManager();
-        return em;
+
+        return entityManagerFactory;
     }
 
 
