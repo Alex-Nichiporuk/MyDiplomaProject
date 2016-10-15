@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "driversdesc", schema = "mydb", catalog = "")
 public class DriversdescEntity {
     private int driverId;
-    private Timestamp workTime;
+    private long workTime;
     private int id;
     private Integer descId;
     private DriverEntity driverByDriverId;
@@ -18,7 +18,7 @@ public class DriversdescEntity {
     public DriversdescEntity() {
     }
 
-    public DriversdescEntity(int driverId, Timestamp workTime, int id, Integer descId) {
+    public DriversdescEntity(int driverId, long workTime, int id, Integer descId) {
         this.driverId = driverId;
         this.workTime = workTime;
         this.id = id;
@@ -37,11 +37,11 @@ public class DriversdescEntity {
 
     @Basic
     @Column(name = "WorkTime", nullable = false)
-    public Timestamp getWorkTime() {
+    public long getWorkTime() {
         return workTime;
     }
 
-    public void setWorkTime(Timestamp workTime) {
+    public void setWorkTime(long workTime) {
         this.workTime = workTime;
     }
 
@@ -75,7 +75,7 @@ public class DriversdescEntity {
 
         if (driverId != that.driverId) return false;
         if (id != that.id) return false;
-        if (workTime != null ? !workTime.equals(that.workTime) : that.workTime != null) return false;
+
         if (descId != null ? !descId.equals(that.descId) : that.descId != null) return false;
 
         return true;
@@ -84,7 +84,7 @@ public class DriversdescEntity {
     @Override
     public int hashCode() {
         int result = driverId;
-        result = 31 * result + (workTime != null ? workTime.hashCode() : 0);
+
         result = 31 * result + id;
         result = 31 * result + (descId != null ? descId.hashCode() : 0);
         return result;

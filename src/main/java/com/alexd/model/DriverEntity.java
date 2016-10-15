@@ -15,7 +15,7 @@ public class DriverEntity {
     private String lastName;
     private int status;
     private String currentTruck;
-    private Timestamp timeStatus;
+    private long timeStatus;
     private int mapId;
     private MapEntity mapByMapId;
     private Collection<DriversdescEntity> driversdescsById;
@@ -30,7 +30,7 @@ public class DriverEntity {
         this.lastName = lastName;
         this.status = 0;
         this.currentTruck = null;
-        this.timeStatus = new Timestamp(1000L);
+        this.timeStatus = 0;
         this.mapId = mapId;
     }
 
@@ -41,7 +41,7 @@ public class DriverEntity {
         this.lastName = lastName;
         this.status = 0;
         this.currentTruck = null;
-        this.timeStatus = new Timestamp(1000L);
+        this.timeStatus = 0;
         this.mapId = mapId;
     }
 
@@ -98,11 +98,11 @@ public class DriverEntity {
 
     @Basic
     @Column(name = "Time_status", nullable = false)
-    public Timestamp getTimeStatus() {
+    public long getTimeStatus() {
         return timeStatus;
     }
 
-    public void setTimeStatus(Timestamp timeStatus) {
+    public void setTimeStatus(long timeStatus) {
         this.timeStatus = timeStatus;
     }
 
@@ -129,7 +129,7 @@ public class DriverEntity {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (currentTruck != null ? !currentTruck.equals(that.currentTruck) : that.currentTruck != null) return false;
-        if (timeStatus != null ? !timeStatus.equals(that.timeStatus) : that.timeStatus != null) return false;
+
 
         return true;
     }
@@ -141,7 +141,7 @@ public class DriverEntity {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + status;
         result = 31 * result + (currentTruck != null ? currentTruck.hashCode() : 0);
-        result = 31 * result + (timeStatus != null ? timeStatus.hashCode() : 0);
+
         result = 31 * result + mapId;
         return result;
     }

@@ -1,11 +1,15 @@
 package com.alexd.service;
 
-import com.alexd.DAO.DriverDao;
+import com.alexd.DAO.*;
 import com.alexd.model.DriverEntity;
+import com.alexd.model.OrdersEntity;
+import com.alexd.util.man.EntManager;
 import com.alexd.view.util.DriverView;
 
 
 import javax.persistence.EntityManager;
+import java.sql.Timestamp;
+
 import java.util.*;
 import java.util.List;
 
@@ -15,9 +19,14 @@ import java.util.List;
 public class DriverService implements DriverServiceImpl {
 EntityManager em;
     DriverDao driverDao;
+    OrdersDao orderDao;
+    TimeDao timeDao;
+
     public DriverService()
     {
         driverDao = new DriverDao();
+        orderDao = new OrdersDao();
+        timeDao = new TimeDao();
     }
 
     public int addDriver(String name, String lastname, int city)
@@ -73,10 +82,93 @@ public List<DriverView> selectAll()
 
 
 
+public boolean changeTime(int id , long time)
+{
+    try {
+        DriverEntity driverEntity = (DriverEntity) driverDao.findById(id);
+        driverEntity.setTimeStatus(driverEntity.getTimeStatus() + time);
+        driverDao.update(driverEntity);
+        return true;
+    }
+    catch (Exception exc)
+    {
+        return false;
+    }
+}
+
+
+public ArrayList<DriverView> portableDriver(int time , String truck)
+{
+    EntityManager em = EntManager.getManager().createEntityManager();
+    List<DriverEntity> result = driverDao.getDriverForOrder(checkTimeForDriver(time),truck, em);
+    ArrayList<DriverView> driverViews = new ArrayList<DriverView>();
+    for(DriverEntity a : result)
+    {
+        driverViews.add(new DriverView(a));
+    }
+
+return  driverViews;
+}
 
 
 
 
+
+
+
+
+
+
+
+public long checkTimeForDriver(int time)
+{
+
+    long workPeriod;
+    if( compareMonth(timeDao.getEndTime(time) , timeDao.getBeginTime(time)))
+    {
+        workPeriod = timeDao.getEndTime(time) -timeDao.getBeginTime(time);
+    }
+    else
+    {
+        Calendar b = Calendar.getInstance();
+        b.setTime(new Date(timeDao.getEndTime(time)));
+
+workPeriod = notFullMonth( timeDao.getBeginTime(time), timeDao.getEndTime(time));
+
+    }
+
+
+return workPeriod;
+}
+
+private boolean compareMonth(long begin, long end)
+{
+    Calendar a = Calendar.getInstance();
+    Calendar b = Calendar.getInstance();
+    a.setTime(new Date(begin));
+    b.setTime(new Date(end));
+
+    if((a.get(Calendar.MONTH)>b.get(Calendar.MONTH))||(a.get(Calendar.MONTH)<b.get(Calendar.MONTH)&&a.get(Calendar.YEAR)>b.get(Calendar.YEAR)))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+
+private long notFullMonth(long begin, long end)
+{
+
+    Calendar b = Calendar.getInstance();
+    b.setTime(new Date(end));
+
+    return end - begin - b.get(Calendar.DAY_OF_MONTH)*3600000*24-b.get(Calendar.HOUR_OF_DAY)*3600000 ;
+
+
+}
 
 
 }

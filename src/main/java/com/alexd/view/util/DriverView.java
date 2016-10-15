@@ -15,7 +15,7 @@ public class DriverView {
     private    String name;
     private    String lastname;
     private   String truck;
-    private   Timestamp time;
+    private   long time;
     private   String city;
     private   int status;
     private  int id;
@@ -55,7 +55,7 @@ public class DriverView {
         return truck;
     }
 
-    public Timestamp getTime() {
+    public long getTime() {
         return time;
     }
 
