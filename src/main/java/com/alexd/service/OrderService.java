@@ -1,6 +1,10 @@
 package com.alexd.service;
 
 import com.alexd.DAO.*;
+import com.alexd.model.CargoEntity;
+import com.alexd.model.PathEntity;
+import com.alexd.model.PointEntity;
+import com.alexd.model.PointHasCargoEntity;
 import com.alexd.util.man.EntManager;
 import com.alexd.view.util.CargoWeightView;
 import com.alexd.view.util.CheckCargoView;

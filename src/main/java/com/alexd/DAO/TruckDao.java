@@ -1,5 +1,6 @@
 package com.alexd.DAO;
 
+import com.alexd.model.TruckEntity;
 import com.alexd.view.util.TruckView;
 
 import javax.persistence.EntityManager;

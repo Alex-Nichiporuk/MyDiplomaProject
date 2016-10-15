@@ -1,5 +1,8 @@
 package com.alexd.view.util;
 
+import com.alexd.model.DriverEntity;
+import com.alexd.model.OrdersEntity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,10 +18,10 @@ public class DriverUIView {
     String truckId;
     int orderId;
    ArrayList<PointView>pointViews;
-    public DriverUIView(DriverEntity driverEntity, OrdersEntity ordersEntity, ArrayList<PointView>pointViews,HashMap<Integer , String> coDriver )
+    public DriverUIView(DriverEntity driverEntity, OrdersEntity ordersEntity, ArrayList<PointView>pointViews, HashMap<Integer , String> coDriver )
     {
         this.id = driverEntity.getId();
-        this.truckId = ordersEntity.getTrucksId();
+        this.truckId = ordersEntity.getTruckId();
         this.orderId = ordersEntity.getId();
         this.name = driverEntity.getName();
         this.lastname = driverEntity.getLastName();

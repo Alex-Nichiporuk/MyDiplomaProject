@@ -1,6 +1,8 @@
 package com.alexd.view.util;
 
 
+import com.alexd.model.DriverEntity;
+
 import java.sql.Timestamp;
 
 /**

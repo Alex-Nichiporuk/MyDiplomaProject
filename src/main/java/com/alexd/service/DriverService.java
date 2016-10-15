@@ -1,6 +1,7 @@
 package com.alexd.service;
 
 import com.alexd.DAO.DriverDao;
+import com.alexd.model.DriverEntity;
 import com.alexd.view.util.DriverView;
 
 

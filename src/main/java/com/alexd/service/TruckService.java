@@ -1,6 +1,7 @@
 package com.alexd.service;
 
 import com.alexd.DAO.TruckDao;
+import com.alexd.model.TruckEntity;
 import com.alexd.view.util.TruckView;
 
 import javax.persistence.EntityManager;
@@ -32,7 +33,7 @@ public class TruckService implements TruckServiceImpl{
     {
         try {
             em.getTransaction().begin();
-            truckDao.update(new TruckEntity(id, size,status, city, driversize ));
+            truckDao.update(new TruckEntity(id, size,status,  driversize ,city ));
             em.getTransaction().commit();
         }
         catch (Exception e)

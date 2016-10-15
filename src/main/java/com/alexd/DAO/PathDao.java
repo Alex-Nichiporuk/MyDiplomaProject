@@ -1,5 +1,7 @@
 package com.alexd.DAO;
 
+import com.alexd.model.PathEntity;
+import com.alexd.model.PointHasCargoEntity;
 import com.alexd.view.util.CargoWeightView;
 import com.alexd.view.util.CheckCargoView;
 import com.alexd.view.util.PointView;
@@ -59,7 +61,7 @@ public class PathDao extends GenericClass<PathEntity> implements PathImpl {
 
     public ArrayList<PointView> pointAndCargo(int oder, EntityManager em)
     {
-        String query = "SELECT p FROM PointHasCargoEntity AS p , PointEntity  AS po , PathEntity AS pe , OrdersEntity as o WHERE p.pointId = po.id AND po.pathId = pe.id AND pe.id=o.pathId AND o.id="+oder;
+        String query = "SELECT p FROM PointHasCargoEntity AS p , PointEntity  AS po , PathEntity AS pe , OrdersEntity as o WHERE p.pointId = po.id AND po.pathId = pe.id AND pe.id=o.pathId AND o.id="+oder+"ORDER BY p.pointId , p.status DESC ";
         TypedQuery<PointHasCargoEntity> typedQuery = em.createQuery(query, PointHasCargoEntity.class);
         List<PointHasCargoEntity> result =  typedQuery.getResultList();
         ArrayList<PointView> resultList = new ArrayList<PointView>();

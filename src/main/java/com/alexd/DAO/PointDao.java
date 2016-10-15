@@ -1,5 +1,7 @@
 package com.alexd.DAO;
 
+import com.alexd.model.PointEntity;
+
 /**
  * Created by Cj444 on 11.10.2016.
  */

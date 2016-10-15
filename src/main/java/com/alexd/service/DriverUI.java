@@ -2,6 +2,8 @@ package com.alexd.service;
 
 import com.alexd.DAO.DriverDao;
 import com.alexd.DAO.PathDao;
+import com.alexd.model.DriverEntity;
+import com.alexd.model.OrdersEntity;
 import com.alexd.util.man.EntManager;
 import com.alexd.view.util.DriverUIView;
 import com.alexd.view.util.PointView;

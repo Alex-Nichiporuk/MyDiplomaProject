@@ -1,5 +1,7 @@
 package com.alexd.view.util;
 
+import com.alexd.model.TruckEntity;
+
 /**
  * Created by Cj444 on 11.10.2016.
  */
@@ -18,7 +20,7 @@ public class TruckView {
         size = truckEntity.getSize();
         status = truckEntity.getStatus();
         busyStatus = truckEntity.getBusyStatus();
-        driverdesc = truckEntity.getDriverdesc();
+        driverdesc = truckEntity.getDriverDesc();
         map_id = truckEntity.getMapId();
         city = truckEntity.getMapByMapId().getCity();
     }

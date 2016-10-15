@@ -1,5 +1,6 @@
 package com.alexd.DAO;
 
+import com.alexd.model.PathEntity;
 import com.alexd.view.util.CheckCargoView;
 
 import javax.persistence.EntityManager;

@@ -1,5 +1,7 @@
 package com.alexd.view.util;
 
+import com.alexd.model.PointHasCargoEntity;
+
 /**
  * Created by Cj444 on 12.10.2016.
  */
