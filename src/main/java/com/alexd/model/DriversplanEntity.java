@@ -10,18 +10,18 @@ import java.sql.Timestamp;
 @Table(name = "driversplan", schema = "mydb", catalog = "")
 public class DriversplanEntity {
     private int id;
-    private Timestamp begin;
-    private Timestamp end;
+    private long driverDate;
+    private long workTime;
     private Integer driverId;
     private DriverEntity driverByDriverId;
 
     public DriversplanEntity() {
     }
 
-    public DriversplanEntity(int id, Timestamp begin, Timestamp end, Integer driverId) {
+    public DriversplanEntity(int id, long driverDate, long workTime, Integer driverId) {
         this.id = id;
-        this.begin = begin;
-        this.end = end;
+        this.driverDate = driverDate;
+        this.workTime = workTime;
         this.driverId = driverId;
     }
 
@@ -37,23 +37,23 @@ public class DriversplanEntity {
     }
 
     @Basic
-    @Column(name = "Begin", nullable = false)
-    public Timestamp getBegin() {
-        return begin;
+    @Column(name = "DriverDate", nullable = false)
+    public long getDriverDate() {
+        return driverDate;
     }
 
-    public void setBegin(Timestamp begin) {
-        this.begin = begin;
+    public void setDriverDate(long driverDate) {
+        this.driverDate = driverDate;
     }
 
     @Basic
-    @Column(name = "End", nullable = false)
-    public Timestamp getEnd() {
-        return end;
+    @Column(name = "WorkTime", nullable = false)
+    public long getWorkTime() {
+        return workTime;
     }
 
-    public void setEnd(Timestamp end) {
-        this.end = end;
+    public void setWorkTime(long workTime) {
+        this.workTime = workTime;
     }
 
     @Basic
@@ -74,8 +74,8 @@ public class DriversplanEntity {
         DriversplanEntity that = (DriversplanEntity) o;
 
         if (id != that.id) return false;
-        if (begin != null ? !begin.equals(that.begin) : that.begin != null) return false;
-        if (end != null ? !end.equals(that.end) : that.end != null) return false;
+
+        
         if (driverId != null ? !driverId.equals(that.driverId) : that.driverId != null) return false;
 
         return true;
@@ -84,8 +84,8 @@ public class DriversplanEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (begin != null ? begin.hashCode() : 0);
-        result = 31 * result + (end != null ? end.hashCode() : 0);
+
+      
         result = 31 * result + (driverId != null ? driverId.hashCode() : 0);
         return result;
     }

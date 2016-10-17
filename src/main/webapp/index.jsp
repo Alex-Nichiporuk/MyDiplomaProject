@@ -1,16 +1,27 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Alex
-  Date: 25.09.2016
-  Time: 0:24
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <link href="Bootstrap/css/login.css" rel="stylesheet">
 </head>
 <body>
-Hello world!
+<div class="container">
+    <div class="row">
+        <div class="login">
+            <div class="login-triangle"></div>
+
+            <h2 class="login-header">LogiWEB</h2>
+
+            <form class="login-container" action="LoginServlet" method="post">
+                <p><input name="login" type="text" placeholder="Login"></p>
+                <p><input name ="password" type="password" placeholder="Password"></p>
+                <p><input type="submit" value="Log in" ></p>
+            </form>
+<c:if test="${not empty error}">
+<c:out value="${error}"> </c:out>
+</c:if>
+        </div>
+    </div>
+</div>
 </body>
 </html>

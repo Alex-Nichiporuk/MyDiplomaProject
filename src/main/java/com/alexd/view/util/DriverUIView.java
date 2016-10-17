@@ -1,5 +1,6 @@
 package com.alexd.view.util;
 
+import com.alexd.DAO.PathDao;
 import com.alexd.model.DriverEntity;
 import com.alexd.model.OrdersEntity;
 
@@ -18,6 +19,7 @@ public class DriverUIView {
     String truckId;
     int orderId;
    ArrayList<PointView>pointViews;
+    int pathLength;
     public DriverUIView(DriverEntity driverEntity, OrdersEntity ordersEntity, ArrayList<PointView>pointViews, HashMap<Integer , String> coDriver )
     {
         this.id = driverEntity.getId();
@@ -27,7 +29,13 @@ public class DriverUIView {
         this.lastname = driverEntity.getLastName();
         this.pointViews = pointViews;
         this.coDriver = coDriver;
+        this.pathLength = new PathDao().pathLength(orderId);
 
+
+    }
+
+    public int getPathLength() {
+        return pathLength;
     }
 
     public int getId() {

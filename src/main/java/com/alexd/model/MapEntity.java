@@ -20,8 +20,8 @@ public class MapEntity {
     public MapEntity() {
     }
 
-    public MapEntity(int id, String city, double latitude, double longitude) {
-        this.id = id;
+    public MapEntity(String city, double latitude, double longitude) {
+
         this.city = city;
         this.latitude = latitude;
         this.longitude = longitude;

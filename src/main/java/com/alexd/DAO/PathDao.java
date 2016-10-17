@@ -1,14 +1,20 @@
 package com.alexd.DAO;
 
 import com.alexd.model.PathEntity;
+import com.alexd.model.PointEntity;
 import com.alexd.model.PointHasCargoEntity;
+import com.alexd.util.man.EntManager;
+import com.alexd.util.man.GooglePathFind;
 import com.alexd.view.util.CargoWeightView;
 import com.alexd.view.util.CheckCargoView;
 import com.alexd.view.util.PointView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -59,9 +65,9 @@ public class PathDao extends GenericClass<PathEntity> implements PathImpl {
     }
 
 
-    public ArrayList<PointView> pointAndCargo(int oder, EntityManager em)
+    public ArrayList<PointView> pointAndCargo(int order, EntityManager em)
     {
-        String query = "SELECT p FROM PointHasCargoEntity AS p , PointEntity  AS po , PathEntity AS pe , OrdersEntity as o WHERE p.pointId = po.id AND po.pathId = pe.id AND pe.id=o.pathId AND o.id="+oder+"ORDER BY p.pointId , p.status DESC ";
+        String query = "SELECT p FROM PointHasCargoEntity AS p , PointEntity  AS po , PathEntity AS pe , OrdersEntity as o WHERE p.pointId = po.id AND po.pathId = pe.id AND pe.id=o.pathId AND o.id="+order+"ORDER BY p.pointId , p.status DESC ";
         TypedQuery<PointHasCargoEntity> typedQuery = em.createQuery(query, PointHasCargoEntity.class);
         List<PointHasCargoEntity> result =  typedQuery.getResultList();
         ArrayList<PointView> resultList = new ArrayList<PointView>();
@@ -71,6 +77,33 @@ public class PathDao extends GenericClass<PathEntity> implements PathImpl {
 
         }
         return resultList;
+    }
+
+
+    public int pathLength(int order)
+    {
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String query = "SELECT po FROM PointHasCargoEntity AS p , PointEntity  AS po , PathEntity AS pe , OrdersEntity as o WHERE p.pointId = po.id AND po.pathId = pe.id AND pe.id=o.pathId AND o.id="+order+"ORDER BY p.pointId , p.status DESC ";
+        TypedQuery<PointEntity> typedQuery = em.createQuery(query, PointEntity.class);
+        List<PointEntity> result =  typedQuery.getResultList();
+
+int length=0;
+for(int i = 1 ; i<result.size() ; i++) {
+    if(!result.get(i).equals(result.get(i-1)))
+    {
+
+        try {
+        length=length+ GooglePathFind.getPath(result.get(i-1).getMapByMapId().getCity(), result.get(i).getMapByMapId().getCity())[0];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+
+        return length;
+
     }
 
 
