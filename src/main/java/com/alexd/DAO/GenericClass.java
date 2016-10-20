@@ -3,6 +3,7 @@ package com.alexd.DAO;
 
 import com.alexd.util.man.EntManager;
 
+import javax.persistence.EntityManager;
 
 
 public  class GenericClass<T> implements GenericDao<T> {
@@ -20,7 +21,10 @@ public  class GenericClass<T> implements GenericDao<T> {
     }
 
     public void insert(T entity) {
-        EntManager.getManager().createEntityManager().persist(entity);
+        EntityManager em = EntManager.getManager().createEntityManager();
+        em.getTransaction().begin();
+        em.persist(entity);
+        em.getTransaction().commit();
     }
 
     public void update(T entity) {

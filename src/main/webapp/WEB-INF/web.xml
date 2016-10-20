@@ -24,4 +24,31 @@
         <servlet-name>DriverServlet</servlet-name>
         <url-pattern>/DriverServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+    <servlet-name>ManagerServlet</servlet-name>
+    <servlet-class>com.alexd.servlets.ManagerServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ManagerServlet</servlet-name>
+<url-pattern>/ManagerServlet</url-pattern>
+</servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddDriverServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.AddDriverServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddDriverServlet</servlet-name>
+        <url-pattern>/AddDriverServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DelUserServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.DelUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DelUserServlet</servlet-name>
+        <url-pattern>/DelUserServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

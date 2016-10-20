@@ -20,8 +20,8 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(int id, String login, String password, String name, String lastName, int roleId) {
-        this.id = id;
+    public UserEntity(  String login, String password, String name, String lastName, int roleId) {
+
         this.login = login;
         this.password = password;
         this.name = name;

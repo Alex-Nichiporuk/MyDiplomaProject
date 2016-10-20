@@ -20,9 +20,26 @@ public class DriverView {
     private   int status;
     private  int id;
     private    int cityId;
+    private  int order;
 
 
-    public DriverView(DriverEntity driverEntity)
+    public DriverView(DriverEntity driverEntity , int order)
+    {
+
+        this.name = driverEntity.getName();
+        this.lastname = driverEntity.getLastName();
+        this.truck = driverEntity.getCurrentTruck();
+        this.time = driverEntity.getTimeStatus()/3600000;
+        this.city = driverEntity.getMapByMapId().getCity();
+        this.status = driverEntity.getStatus();
+        this.id = driverEntity.getId();
+        this.cityId = driverEntity.getMapId();
+        this.order = order;
+
+
+    }
+
+    public DriverView(DriverEntity driverEntity )
     {
 
         this.name = driverEntity.getName();
@@ -33,6 +50,9 @@ public class DriverView {
         this.status = driverEntity.getStatus();
         this.id = driverEntity.getId();
         this.cityId = driverEntity.getMapId();
+
+
+
     }
 
     public int getId() {
@@ -67,5 +87,7 @@ public class DriverView {
         return status;
     }
 
-
+    public int getOrder() {
+        return order;
+    }
 }

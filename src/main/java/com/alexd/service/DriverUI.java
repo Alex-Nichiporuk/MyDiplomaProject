@@ -24,7 +24,7 @@ public class DriverUI {
     {
         EntityManager em = EntManager.getManager().createEntityManager();
         DriverEntity driverEntity = (DriverEntity)driverDao.findById(id);
-       OrdersEntity ordersEntity = driverDao.getOrder(driverEntity.getId(),em);
+       OrdersEntity ordersEntity = driverDao.getOrder(driverEntity.getId());
         ArrayList<PointView>pointViews = pathDao.pointAndCargo(ordersEntity.getId(),em);
         HashMap<Integer , String> coDriver = driverDao.getCodriver(ordersEntity.getId(),em);
         DriverUIView info = new DriverUIView(driverEntity,ordersEntity,pointViews,coDriver);

@@ -13,24 +13,38 @@ import java.io.IOException;
  */
 public class MapService {
     MapDao mapDao = new MapDao();
-    public boolean addCity(String name)
+    public int addCity(String name)
     {
         EntityManager em = EntManager.getManager().createEntityManager();
         double [] coor = null;
+        MapEntity mapEntity;
         try {
 
             coor = GooglePathFind.getCoor(name);
-            MapEntity mapEntity = new MapEntity(name,coor[0],coor[1]);
+              mapEntity = new MapEntity(name,coor[0],coor[1]);
             em.getTransaction().begin();
             mapDao.insert(mapEntity);
             em.getTransaction().commit();
         } catch (IOException e) {
 
             e.printStackTrace();
-            return false;
+            return -1;
         }
 
-        return true;
+        return mapEntity.getId();
 
+    }
+
+    public int checkCity(String city)
+    {
+        int id =mapDao.checkCity(city);
+        if(id!=-1)
+        {
+            return id;
+        }
+        else
+        {
+            return addCity(city);
+        }
     }
 }

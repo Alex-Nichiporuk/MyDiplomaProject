@@ -27,4 +27,12 @@ public class UserService {
         return answer;
 
     }
+
+    public static int addUser(String login, String password , String name, String lastName, int roleId)
+    {
+        UserEntity userEntity = new UserEntity(login,password,name,lastName,roleId);
+        UserDao userDao = new UserDao();
+        userDao.insert(userEntity);
+        return userEntity.getId();
+    }
 }

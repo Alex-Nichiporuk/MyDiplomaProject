@@ -85,6 +85,7 @@ public class PathDao extends GenericClass<PathEntity> implements PathImpl {
         EntityManager em = EntManager.getManager().createEntityManager();
         String query = "SELECT po FROM PointHasCargoEntity AS p , PointEntity  AS po , PathEntity AS pe , OrdersEntity as o WHERE p.pointId = po.id AND po.pathId = pe.id AND pe.id=o.pathId AND o.id="+order+"ORDER BY p.pointId , p.status DESC ";
         TypedQuery<PointEntity> typedQuery = em.createQuery(query, PointEntity.class);
+
         List<PointEntity> result =  typedQuery.getResultList();
 
 int length=0;

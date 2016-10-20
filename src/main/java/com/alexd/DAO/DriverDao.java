@@ -3,6 +3,7 @@ package com.alexd.DAO;
 
 import com.alexd.model.DriverEntity;
 import com.alexd.model.OrdersEntity;
+import com.alexd.util.man.EntManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -22,8 +23,9 @@ public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl
 
 
 
-    public List<DriverEntity>selectAll(EntityManager em)
+    public List<DriverEntity>selectAll()
     {
+        EntityManager em = EntManager.getManager().createEntityManager();
         TypedQuery<DriverEntity> q = em.createQuery("select  d FROM DriverEntity as d" ,DriverEntity.class);
       List<DriverEntity> result =  q.getResultList();
   return result;
@@ -45,12 +47,14 @@ public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl
 
     }
 
-    public OrdersEntity getOrder ( int driverId, EntityManager em)
+    public OrdersEntity getOrder ( int driverId)
     {
+        EntityManager em = EntManager.getManager().createEntityManager();
         String query = "select  o from OrdersEntity AS o, DriversdescEntity  as de, DriverEntity  as d WHERE o.driverDescId =de.descId AND de.driverId = d.id AND o.status = false AND d.id="+driverId;
         TypedQuery<OrdersEntity> q = em.createQuery( query ,OrdersEntity.class);
         List<OrdersEntity> result =  q.getResultList();
-        return result.get(0);
+
+        return result.size()>0?result.get(0):null;
     }
 
 
@@ -64,6 +68,9 @@ public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl
         q.setParameter(1,maxPeriod);
         return q.getResultList();
     }
+
+
+
 
 
 

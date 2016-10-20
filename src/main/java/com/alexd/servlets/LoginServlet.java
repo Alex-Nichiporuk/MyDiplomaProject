@@ -56,6 +56,12 @@ public class LoginServlet extends HttpServlet {
                dispatcher.forward(request,response);
 
            }
+
+           if(role == 2)
+           {
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/ManagerServlet");
+               dispatcher.forward(request,response);
+           }
        }
 
 

@@ -51,34 +51,42 @@ EntityManager em;
         return true;
     }
 
-private List<DriverEntity> selectAlldao()
+public   ArrayList<DriverView> selectAll()
 {
-    try {
-        em.getTransaction().begin();
-        List<DriverEntity> resultQuery = driverDao.selectAll(em);
-        em.getTransaction().commit();
 
-        return resultQuery;
-    }
-    catch (Exception e)
+        List<DriverEntity> resultQuery = new DriverDao().selectAll();
+    ArrayList<DriverView> b = new ArrayList<DriverView>();
+    DriverDao driverDao = new DriverDao();
+    for(DriverEntity a : resultQuery)
     {
-        return null;
+        if(driverDao.getOrder(a.getId())!=null) {
+            b.add(new DriverView(a, driverDao.getOrder(a.getId()).getId()));
+        }
+        else
+        {
+            b.add(new DriverView(a, 0));
+        }
     }
+
+
+
+        return b;
+
 
 
 }
 
 
-public List<DriverView> selectAll()
+public DriverView getById(int id)
 {
-    List<DriverEntity> driverEntities =  selectAlldao();
-    List<DriverView>driverViews = new ArrayList<DriverView>();
-    for(int i = 0; i<driverEntities.size();i++)
-    {
-        driverViews.add(new DriverView(driverEntities.get(i)));
-    }
-    return driverViews;
+    EntityManager em = EntManager.getManager().createEntityManager();
+    DriverEntity driverEntity = (DriverEntity)  driverDao.findById(id);
+    DriverView driverView = new DriverView(driverEntity);
+    return driverView;
 }
+
+
+
 
 
 
@@ -148,14 +156,7 @@ private boolean compareMonth(long begin, long end)
     a.setTime(new Date(begin));
     b.setTime(new Date(end));
 
-    if((a.get(Calendar.MONTH)>b.get(Calendar.MONTH))||(a.get(Calendar.MONTH)<b.get(Calendar.MONTH)&&a.get(Calendar.YEAR)>b.get(Calendar.YEAR)))
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    return !((a.get(Calendar.MONTH) > b.get(Calendar.MONTH)) || (a.get(Calendar.MONTH) < b.get(Calendar.MONTH) && a.get(Calendar.YEAR) > b.get(Calendar.YEAR)));
 }
 
 
