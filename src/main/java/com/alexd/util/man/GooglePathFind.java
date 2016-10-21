@@ -32,7 +32,14 @@ import org.json.JSONObject;
             final JSONObject response = JsonReader.read(url);// делаем запрос к вебсервису и получаем от него ответ
             // как правило наиболее подходящий ответ первый и данные о координатах можно получить по пути
             // //results[0]/geometry/location/lng и //results[0]/geometry/location/lat
-            JSONObject location = response.getJSONArray("results").getJSONObject(0);
+            JSONObject location = null;
+            try {
+                  location = response.getJSONArray("results").getJSONObject(0);
+            }
+            catch (JSONException e)
+            {
+                return new double[]{-1,-1};
+            }
             location = location.getJSONObject("geometry");
             location = location.getJSONObject("location");
             final double lng = location.getDouble("lng");// долгота

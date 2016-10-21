@@ -40,8 +40,8 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request,response);
             return;
         }
-
-       String answer = UserService.checkUser(login,pass);
+        UserService userService = new UserService();
+       String answer = userService.checkUser(login,pass);
        if(answer.equals("error")) {
            request.setAttribute("error", answer);
            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
        }
        else
        {
-           int role = UserService.checkRole(login);
+           int role = userService.checkRole(login);
            if(role==3)
            {
                RequestDispatcher dispatcher = request.getRequestDispatcher("/DriverServlet");

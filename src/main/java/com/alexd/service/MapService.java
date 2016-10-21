@@ -21,6 +21,10 @@ public class MapService {
         try {
 
             coor = GooglePathFind.getCoor(name);
+            if(coor[0]==-1)
+            {
+                return -1;
+            }
               mapEntity = new MapEntity(name,coor[0],coor[1]);
             em.getTransaction().begin();
             mapDao.insert(mapEntity);

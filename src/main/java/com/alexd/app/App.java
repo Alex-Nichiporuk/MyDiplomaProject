@@ -22,10 +22,7 @@ public class App
 
     public static void main( String[] args ) throws IOException {
 
-        DriverService driverService = new DriverService();
-        MapService mapService = new MapService();
-
-      driverService.addDriver("Владимир", "Ульянов", mapService.checkCity("Череповец"));
+      double []a = GooglePathFind.getCoor("pupin");
 System.exit(0);
 
     }

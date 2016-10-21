@@ -5,6 +5,7 @@ import com.alexd.util.man.EntManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 /**
  * Created by Cj444 on 16.10.2016.
@@ -47,6 +48,21 @@ public class UserDao extends GenericClass {
         {
             return -1;
         }
+    }
+
+    public boolean checkLogin(String login)
+    {
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String query="SELECT u FROM UserEntity AS u WHERE u.login = ? ";
+        TypedQuery<UserEntity> tQuery = em.createQuery(query, UserEntity.class);
+        tQuery.setParameter(0, login);
+
+        List<UserEntity> userEntities = tQuery.getResultList();
+        if(userEntities.size()>0)
+        {
+            return false;
+        }
+        return true;
     }
 
 
