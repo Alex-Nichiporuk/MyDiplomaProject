@@ -3,7 +3,9 @@ package com.alexd.DAO;
 
 import com.alexd.util.man.EntManager;
 
+
 import javax.persistence.EntityManager;
+import javax.transaction.Transaction;
 
 
 public  class GenericClass<T> implements GenericDao<T> {
@@ -42,8 +44,13 @@ public  class GenericClass<T> implements GenericDao<T> {
 
 
     public void delete(Object id) {
-        T entity = (T)this.findById(id);
-        EntManager.getManager().createEntityManager().remove(entity);
+
+        EntityManager em = EntManager.getManager().createEntityManager();
+        javax.persistence.EntityTransaction tr = em.getTransaction();
+        tr.begin();
+        em.remove(em.contains((T)this.findById(id)) ? (T)this.findById(id) : em.merge((T)this.findById(id)));
+        tr.commit();
+
         }
 
 

@@ -43,4 +43,27 @@ public class UserService {
         userDao.insert(userEntity);
         return userEntity.getId();
     }
+
+    public   int addUser(String login, String password , String name, String lastName, int roleId, int driverId )
+    {
+        UserEntity userEntity = new UserEntity(login,password,name,lastName,roleId, driverId);
+        UserDao userDao = new UserDao();
+        userDao.insert(userEntity);
+        return userEntity.getId();
+    }
+
+    public boolean delUser(int id)
+    {
+        try
+        {
+            UserDao userDao = new UserDao();
+            userDao.delete(id);
+            return true;
+
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
 }

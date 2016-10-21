@@ -65,6 +65,27 @@ public class UserDao extends GenericClass {
         return true;
     }
 
+    public boolean deleteDriver(int id)
+    {
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String query="SELECT u FROM UserEntity AS u WHERE u.driverId = ? ";
+        TypedQuery<UserEntity> tQuery = em.createQuery(query, UserEntity.class);
+        tQuery.setParameter(0, id);
+        try {
+            UserEntity userEntity = tQuery.getSingleResult();
+            this.delete(userEntity.getId());
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
+
+    }
+
+
+
 
 
 

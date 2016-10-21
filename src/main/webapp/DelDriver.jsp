@@ -12,16 +12,16 @@
 <html>
 <head>
     <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
-    <script   src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+    <link href="Bootstrap/css/login.css" rel="stylesheet">
     <script src="Bootstrap/js/bootstrap.min.js"></script>
-    <script src="Bootstrap/js/DropDown.js"></script>
+    <script   src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
 </head>
-<body>
+<body style="background-color: #456">
 <script>
     var user;
-    var span;
+    var driv ;
     function f() {
-        span =$('#span');
+
         user  = $('#userName');
 
 
@@ -31,12 +31,13 @@
                     method: "POST",
                     url: "http://localhost:8080/DelUserServlet",
                     data: {
-                        username: user.val()
+                        userName: user.val(),
+                        ajax: true
 
                     },
                     success: function (msg) {
-
-                        span.text("Do you real want to delete "+msg+"?");
+                        $('#tableFor').empty();
+                          $('#tableFor').append(msg);
                     }
 
                 }
@@ -46,30 +47,38 @@
     }
 
 
-
-
+    function choiceOf(id) {
+        driv = $('#userName');
+         driv.val($(id).find('td:eq(0)').text());
+f();
+    }
 
 </script>
 
 
-<jsp:include page="ManagerBar.jsp"/>
-<div style="margin: 0px">
-    <jsp:include page="ManDrivBar.jsp"/>
-    <form >
+<jsp:include page="test.jsp"/>
+<div class="container" style="margin:  5% auto;  ">
+    <div class="row">
+        <div class="login" style="width: 100% ; background-color: white ; box-shadow: 0 0 5px 2px;">
+
+            <h2 class="login-header">Delete driver</h2>
+
+    <form  action="/DelUserServlet" method="post">
         <div class="form-group">
-            <label for="userName" class="cols-sm-2 control-label">Driver number</label>
-            <div class="cols-sm-10">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="userName" id="userName"  placeholder="number" onkeyup="f()" style="width: 10%;"/>
+            <label for="userName" class="cols-sm-2 control-label" style="margin: auto">Driver last name, name or id</label>
 
-                </div>
 
-            </div>
+                    <input type="text" class="form-control" name="userName" id="userName"  placeholder="driver" onkeyup="f()" style="width: 20% ; margin: auto"/>
 
-            <span id="span"> </span>
+ <div id="tableFor">
+     <span>
+<c:if test="${not empty driver}">
+    <c:out value="${driver}"></c:out>
+</c:if>
+         </span>
+ </div>
 
-            <input type="submit"   class="btn btn-primary btn-lg btn-block login-button"  value="ok" style="width: 5% ; height: 25px; font-size: 16px "> </input>
+            <input type="submit"   class="btn btn-primary btn-lg btn-block login-button"  value="ok" style=" margin: auto; font-size: 20px; width: 20% "> </input>
 
         </div>
 
@@ -77,7 +86,9 @@
 
 
     </form>
-    </div>
 
+        </div>
+    </div>
+</div>
 </body>
 </html>

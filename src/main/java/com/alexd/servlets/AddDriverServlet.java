@@ -57,9 +57,9 @@ public class AddDriverServlet extends HttpServlet {
         if(error.equals("")) {
             DriverService driverService = new DriverService();
             MapService mapService = new MapService();
-            driverService.addDriver(name, lastname, mapService.checkCity(city));
+           int driverId = driverService.addDriver(name, lastname, mapService.checkCity(city));
             UserService userService = new UserService();
-            userService.addUser(login, password, name, lastname, 3);
+            userService.addUser(login, password, name, lastname, 3, driverId);
             request.setAttribute("driver", "the driver " + name + " " + lastname + " has been added ");
             }
             else

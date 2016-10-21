@@ -1,13 +1,14 @@
 package com.alexd.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Cj444 on 15.10.2016.
  */
 @Entity
 @Table(name = "user", schema = "mydb", catalog = "")
-public class UserEntity {
+public class UserEntity  {
     private int id;
     private String login;
     private String password;
@@ -15,6 +16,7 @@ public class UserEntity {
     private String lastName;
     private int roleId;
     private RoleEntity roleByRoleId;
+    private int driverId;
 
 
     public UserEntity() {
@@ -27,6 +29,16 @@ public class UserEntity {
         this.name = name;
         this.lastName = lastName;
         this.roleId = roleId;
+    }
+
+    public UserEntity(  String login, String password, String name, String lastName, int roleId, int driverId) {
+
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+        this.roleId = roleId;
+        this.driverId = driverId;
     }
 
     @Id
@@ -88,6 +100,16 @@ public class UserEntity {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    @Basic
+    @Column(name = "DriverId", nullable = false)
+    public int getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
     @Override

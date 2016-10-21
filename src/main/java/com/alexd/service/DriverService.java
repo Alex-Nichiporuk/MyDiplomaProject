@@ -5,6 +5,7 @@ import com.alexd.model.DriverEntity;
 import com.alexd.model.OrdersEntity;
 import com.alexd.util.man.EntManager;
 import com.alexd.view.util.DriverView;
+import org.osgi.service.device.Driver;
 
 
 import javax.persistence.EntityManager;
@@ -27,6 +28,25 @@ EntityManager em;
         driverDao = new DriverDao();
         orderDao = new OrdersDao();
         timeDao = new TimeDao();
+
+    }
+
+    public boolean delDriver(String id)
+    {
+        try
+        {
+            UserDao userDao = new UserDao();
+            userDao.deleteDriver(Integer.parseInt(id));
+            driverDao.delete(Integer.parseInt(id));
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+
+        }
+
     }
 
     public int addDriver(String name, String lastname, int city)
@@ -86,6 +106,36 @@ public DriverView getById(int id)
 }
 
 
+public ArrayList<DriverView> getDriversBydifferent(String code)
+{
+    DriverDao driverDao = new DriverDao();
+    try{
+        int id = Integer.parseInt(code);
+        ArrayList<DriverView> result = new ArrayList<DriverView>();
+                result.add(new DriverView((DriverEntity) driverDao.findById(id)));
+
+        return result;
+    }
+    catch (Exception exc)
+    {
+        List<DriverEntity> driverEntities = driverDao.getByDif(code);
+        ArrayList<DriverView> result = new ArrayList<DriverView>();
+        for(DriverEntity a : driverEntities)
+        {
+            if(driverDao.getOrder(a.getId())!=null) {
+                result.add(new DriverView(a, driverDao.getOrder(a.getId()).getId()));
+            }
+            else
+            {
+                result.add(new DriverView(a, 0));
+            }
+        }
+return result;
+    }
+
+}
+
+
 
 
 
@@ -119,7 +169,46 @@ return  driverViews;
 }
 
 
+public String htmlTable(String code)
+{
+    ArrayList<DriverView> driverViews  =   getDriversBydifferent(code);
 
+    String htmlHead = "<table  id=\"table1\" class=\"table table-striped\" style=\"width: 100%\">\n" +
+            "         <thead>\n" +
+            "         <tr >\n" +
+            "             <td>Number</td>\n" +
+            "             <td style=\"width: 204px\">Name</td>\n" +
+            "             <td style=\"width: 204px\">Last name</td>\n" +
+            "             <td>Truck number</td>\n" +
+            "             <td style=\"width: 204px\">Current city</td>\n" +
+            "             <td>Status</td>\n" +
+            "             <td>Work time</td>\n" +
+            "             <td>Current order</td>\n" +
+            "\n" +
+            "         </tr>\n" +
+            "         </thead>\n" +
+            "\n";
+    String data="";
+
+    for(DriverView a : driverViews) {
+          data = data +
+
+
+                "             <tr onclick=\"choiceOf(this)\">\n" +
+                "                 <td>" + a.getId() + "</td>"+
+                "                 <td>" + a.getName() + "</td>"+
+                "                 <td>" + a.getLastname() + "</td>"+
+                "                 <td>" + a.getTruck() + "</td>"+
+                "                 <td>" + a.getCity() + "</td>"+
+                "                 <td>" + a.getStatus() + "</td>"+
+                "                 <td>" + a.getTime() + "</td>"+
+                "                 <td>" + a.getOrder() + "</td>"+
+                "             </tr>\n" ;
+
+    }
+   String htmlEnd =  "     </table>";
+return htmlHead+data+htmlEnd;
+}
 
 
 

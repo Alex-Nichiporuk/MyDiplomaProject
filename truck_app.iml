@@ -18,7 +18,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="f9ef4fd3-ffa7-47da-a027-28a675701e0a" />
+          <unit-entry name="hibernate.cfg.xml" value="354f385f-625a-4550-89c8-33411b0188f8" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
@@ -30,7 +30,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="COLIBRI" />
-          <factory-entry name="truckApp" value="ea6aefc4-088d-44be-a562-eba4eeaf4119" />
+          <factory-entry name="truckApp" value="354f385f-625a-4550-89c8-33411b0188f8" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>

@@ -22,7 +22,8 @@ public class App
 
     public static void main( String[] args ) throws IOException {
 
-      double []a = GooglePathFind.getCoor("pupin");
+      DriverService driverService = new DriverService();
+        driverService.delDriver("37");
 System.exit(0);
 
     }

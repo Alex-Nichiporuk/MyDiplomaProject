@@ -69,6 +69,18 @@ public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl
         return q.getResultList();
     }
 
+    public List<DriverEntity>getByDif(String code)
+    {
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String param = "'"+code+"%'";
+        String query = "SELECT d FROM DriverEntity AS d  WHERE d.lastName LIKE"+ param + " OR d.name LIKE"+param ;
+        TypedQuery<DriverEntity> q = em.createQuery( query ,DriverEntity.class);
+
+
+        List<DriverEntity> a = q.getResultList();
+        return q.getResultList();
+    }
+
 
 
 
