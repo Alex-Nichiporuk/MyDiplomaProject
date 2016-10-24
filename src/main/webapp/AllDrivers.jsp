@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Cj444
-  Date: 18.10.2016
-  Time: 18:35
+  Date: 22.10.2016
+  Time: 23:10
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -24,7 +24,7 @@
         <div class="login" style="width: 100% ; background-color: white">
 
             <h2 class="login-header">Drivers</h2>
-            <table  class="table table-striped" style="width: 100%">
+            <table  class="table table-striped" style="width: 100%" >
                 <thead>
                 <tr>
                     <td>Number</td>
@@ -33,7 +33,7 @@
                     <td>Truck number</td>
                     <td>Current city</td>
                     <td>Status</td>
-                    <td>Work time</td>
+
 
                 </tr>
                 </thead>
@@ -46,12 +46,14 @@
                         <td>${driver.truck}</td>
                         <td>${driver.city}</td>
                         <td>${driver.status}</td>
-                        <td>${driver.time}</td>
-                    </tr>
 
+                    </tr>
+                    <div  id='PopUp'  style='display: none; position: absolute; left: 50px; top: 50px; border: solid black 1px; padding: 10px; background-color: white; text-align: justify; font-size: 14px; width: 20%;' onclick="document.getElementById('PopUp').style.display = 'none'">Это текст во всплывающем окне
+
+                    </div>
                 </c:forEach>
 
-                </tr>
+
 
             </table>
 

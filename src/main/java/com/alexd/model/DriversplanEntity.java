@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Table(name = "driversplan", schema = "mydb", catalog = "")
 public class DriversplanEntity {
     private int id;
-    private long driverDate;
+    private Timestamp driverDate;
     private long workTime;
     private Integer driverId;
     private DriverEntity driverByDriverId;
@@ -18,7 +18,7 @@ public class DriversplanEntity {
     public DriversplanEntity() {
     }
 
-    public DriversplanEntity(int id, long driverDate, long workTime, Integer driverId) {
+    public DriversplanEntity(  Timestamp driverDate, long workTime, Integer driverId) {
         this.id = id;
         this.driverDate = driverDate;
         this.workTime = workTime;
@@ -38,11 +38,11 @@ public class DriversplanEntity {
 
     @Basic
     @Column(name = "DriverDate", nullable = false)
-    public long getDriverDate() {
+    public Timestamp getDriverDate() {
         return driverDate;
     }
 
-    public void setDriverDate(long driverDate) {
+    public void setDriverDate(Timestamp driverDate) {
         this.driverDate = driverDate;
     }
 

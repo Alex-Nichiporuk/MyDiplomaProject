@@ -28,27 +28,27 @@
             <ul class="nav navbar-nav pull-right">
                  <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Drivers <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="sidebar-left.html">All drivers</a></li>
-                        <li class="active"><a href="sidebar-right.html">Add driver</a></li>
-                        <li><a href="sidebar-left.html">Delete driver</a></li>
-                        <li><a href="sidebar-left.html">Edit driver</a></li>
+                    <ul class="dropdown-menu" >
+                        <li><a href="/AllDriversServlet">All drivers</a></li>
+                        <li ><a href="/AddDriverServlet">Add driver</a></li>
+                        <li><a href="/DelUserServlet">Delete driver</a></li>
+                        <li ><a href="/EditServlet" >Edit driver</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trucks <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="sidebar-left.html">All trucks</a></li>
-                        <li class="active"><a href="sidebar-right.html">Add truck</a></li>
-                        <li><a href="sidebar-left.html">Delete truck</a></li>
-                        <li><a href="sidebar-left.html">Edit truck</a></li>
+                        <li><a href="AllTruckServlet">All trucks</a></li>
+                        <li ><a href="AddTruckServlet">Add truck</a></li>
+                        <li><a href="TruckDelServlet">Delete truck</a></li>
+                        <li><a href="EditTruckServlet">Edit truck</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="sidebar-left.html">All orders</a></li>
-                        <li class="active"><a href="sidebar-right.html">Add order</a></li>
+                        <li><a href="AllOrderServlet">All orders</a></li>
+                        <li ><a href="AddOrderServlet">Add order</a></li>
                         <li><a href="sidebar-left.html">Find order</a></li>
 
                     </ul>

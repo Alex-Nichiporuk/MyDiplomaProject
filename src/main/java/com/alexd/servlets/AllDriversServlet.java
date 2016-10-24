@@ -13,10 +13,12 @@ import java.io.IOException;
 /**
  * Created by Cj444 on 18.10.2016.
  */
-public class ManagerServlet extends HttpServlet {
+public class AllDriversServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ManagerUI.jsp");
+        DriverService driverService = new DriverService();
+        request.setAttribute("driver", driverService.selectAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("AllDrivers.jsp");
         dispatcher.forward(request,response);
 
     }
@@ -28,7 +30,7 @@ public class ManagerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DriverService driverService = new DriverService();
         request.setAttribute("driver", driverService.selectAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/ManagerUI.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("AllDrivers.jsp");
         dispatcher.forward(request,response);
 
 

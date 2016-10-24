@@ -1,7 +1,9 @@
 package com.alexd.servlets;
 
+import com.alexd.service.DriverService;
 import com.alexd.service.DriverUI;
 import com.alexd.service.UserService;
+import com.alexd.view.util.DriverStatView;
 import com.alexd.view.util.DriverUIView;
 
 import javax.servlet.RequestDispatcher;
@@ -25,8 +27,9 @@ public class DriverServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-
-        DriverUIView driverUIView = new DriverUI().getInfo(7);
+        DriverService driverService = new DriverService();
+       int id = driverService.getDriverIdByLogin(login);
+        DriverUIView driverUIView = new DriverUI().getInfo(id);
 
 
 

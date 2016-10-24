@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 
            if(role == 2)
            {
-               RequestDispatcher dispatcher = request.getRequestDispatcher("/ManagerServlet");
+               RequestDispatcher dispatcher = request.getRequestDispatcher("/AllDriversServlet");
                dispatcher.forward(request,response);
            }
        }

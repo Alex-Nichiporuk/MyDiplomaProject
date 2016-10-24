@@ -30,7 +30,11 @@ public  class GenericClass<T> implements GenericDao<T> {
     }
 
     public void update(T entity) {
-        EntManager.getManager().createEntityManager().merge(entity);
+        EntityManager em = EntManager.getManager().createEntityManager();
+        javax.persistence.EntityTransaction tr = em.getTransaction();
+        tr.begin();
+        em.merge(entity);
+        tr.commit();
     }
 
     public Object findById(Object id) {

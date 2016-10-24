@@ -41,6 +41,17 @@ public class UserEntity  {
         this.driverId = driverId;
     }
 
+    public UserEntity( int id,  String login, String password, String name, String lastName, int roleId, int driverId) {
+
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+        this.roleId = roleId;
+        this.driverId = driverId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

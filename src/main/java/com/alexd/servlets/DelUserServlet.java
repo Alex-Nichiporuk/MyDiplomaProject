@@ -29,6 +29,7 @@ public class DelUserServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        java.util.Enumeration a =  request.getParameterNames();
         String code = request.getParameter("userName");
         String ajax = request.getParameter("ajax");
         DriverService driverService = new DriverService();

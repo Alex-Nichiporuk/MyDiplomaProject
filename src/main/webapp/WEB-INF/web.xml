@@ -25,12 +25,12 @@
         <url-pattern>/DriverServlet</url-pattern>
     </servlet-mapping>
     <servlet>
-    <servlet-name>ManagerServlet</servlet-name>
-    <servlet-class>com.alexd.servlets.ManagerServlet</servlet-class>
+    <servlet-name>AllDriversServlet</servlet-name>
+    <servlet-class>com.alexd.servlets.AllDriversServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-<servlet-name>ManagerServlet</servlet-name>
-<url-pattern>/ManagerServlet</url-pattern>
+<servlet-name>AllDriversServlet</servlet-name>
+<url-pattern>/AllDriversServlet</url-pattern>
 </servlet-mapping>
 
     <servlet>
@@ -49,6 +49,66 @@
     <servlet-mapping>
         <servlet-name>DelUserServlet</servlet-name>
         <url-pattern>/DelUserServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.EditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+    <servlet-name>AllTruckServlet</servlet-name>
+    <servlet-class>com.alexd.servlets.AllTruckServlet</servlet-class>
+</servlet>
+    <servlet-mapping>
+        <servlet-name>AllTruckServlet</servlet-name>
+        <url-pattern>/AllTruckServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AddTruckServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.AddTruckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddTruckServlet</servlet-name>
+        <url-pattern>/AddTruckServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>TruckDelServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.TruckDelServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TruckDelServlet</servlet-name>
+        <url-pattern>/TruckDelServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditTruckServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.EditTruckServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditTruckServlet</servlet-name>
+        <url-pattern>/EditTruckServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllOrderServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.AllOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllOrderServlet</servlet-name>
+        <url-pattern>/AllOrderServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddOrderServlet</servlet-name>
+        <servlet-class>com.alexd.servlets.AddOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddOrderServlet</servlet-name>
+        <url-pattern>/AddOrderServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

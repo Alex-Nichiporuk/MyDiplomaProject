@@ -49,5 +49,7 @@ public class TruckView {
         return map_id;
     }
 
-
+    public boolean getBusyStatus() {
+        return busyStatus;
+    }
 }

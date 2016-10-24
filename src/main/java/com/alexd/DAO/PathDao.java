@@ -102,6 +102,9 @@ for(int i = 1 ; i<result.size() ; i++) {
 
 }
 
+PathEntity p =(PathEntity) findById(result.get(0).getPathId());
+        p.setLength(length);
+        update(p);
 
         return length;
 

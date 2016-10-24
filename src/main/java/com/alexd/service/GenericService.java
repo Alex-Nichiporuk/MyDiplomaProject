@@ -24,6 +24,7 @@ public class GenericService<T> implements GenericServiceImpl<T>{
         }
         catch (Exception exc)
         {
+            exc.getMessage();
             return false;
         }
 

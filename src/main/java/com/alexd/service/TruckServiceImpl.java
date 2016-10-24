@@ -12,7 +12,7 @@ public interface TruckServiceImpl {
 
 
       String addTruck(String id, int size, int city, boolean status, int driversize);
-      boolean updateTruck(String id, int size, int city, boolean status, int driversize);
+      boolean updateTruck(String id, float size, int city, String status, int driversize);
       ArrayList<TruckView> selectAll();
 
 

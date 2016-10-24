@@ -1,18 +1,14 @@
 package com.alexd.service;
 
 import com.alexd.DAO.*;
-import com.alexd.model.CargoEntity;
-import com.alexd.model.PathEntity;
-import com.alexd.model.PointEntity;
-import com.alexd.model.PointHasCargoEntity;
+import com.alexd.model.*;
 import com.alexd.util.man.EntManager;
-import com.alexd.view.util.CargoWeightView;
-import com.alexd.view.util.CheckCargoView;
-import com.alexd.view.util.TruckView;
+import com.alexd.view.util.*;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -37,10 +33,24 @@ public class OrderService {
 
     }
 
-public int addOrder()
-{
 
-return -1;
+    public ArrayList<OrderView> getAll()
+    {
+        ArrayList<OrderView> orderViews = new ArrayList<OrderView>();
+        for(OrdersEntity o : ordersDao.getAll())
+        {
+            orderViews.add(new OrderView(o));
+        }
+return orderViews;
+    }
+
+
+
+public int addOrder(int pathId, int timeId, String truckId, int driverDescId )
+{
+    OrdersEntity  ordersEntity = new OrdersEntity(false, pathId,timeId,truckId,driverDescId);
+ordersDao.insert(ordersEntity);
+return ordersEntity.getId();
 
 }
 
@@ -201,4 +211,125 @@ return result;
 }
 
 
+public int addTimePlan(long begin, long end)
+{
+    TimeDao timeDao = new TimeDao();
+    TimeEntity timeEntity = new TimeEntity(new Timestamp(begin), new Timestamp(end));
+    timeDao.insert(timeEntity);
+    return timeEntity.getId();
 }
+
+
+
+
+public int bindDriver(int driverId , int driverDesc) {
+    GenericClass<DriversdescEntity> genericClass = new GenericClass<DriversdescEntity>();
+    DriversdescEntity driversdescEntity = new DriversdescEntity(driverId, 0l,driverDesc);
+    genericClass.insert(driversdescEntity);
+    return driversdescEntity.getDescId();
+}
+
+
+public void pathUp(int id)
+{
+    pathDao.pathLength(id);
+}
+
+public void truckUp(String id)
+{
+    truckDao.setBusyTruck(id);
+}
+
+
+
+
+public String htmlPoints(String city)
+{
+    if(city.equals(""))
+    {
+        city = " City name";
+    }
+    String html = "<form method=\"post\" class=\"login-container\"  action=\"EditServlet\">\n" +
+        "                        <div class=\"form-group\">\n" +
+        "                            <label for=\"email\" class=\"cols-sm-2 control-label\">City name</label>\n" +
+        "                            <div class=\"cols-sm-10\">\n" +
+        "                                <div class=\"input-group\">\n" +
+        "                                    <span class=\"input-group-addon\"><i class=\"fa fa-user fa\" aria-hidden=\"true\"></i></span>\n" +
+        "                                    <input type=\"text\" class=\"form-control\" name=\"cityName\" id=\"cityName\"  value=\""+city+"\"/>\n" +
+        "                                </div>\n" +
+        "                            </div>\n" +
+        "                        </div>\n" +
+        "\n" +
+
+        "\n" +
+        "   <input type=\"submit\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"SAVE PATH\" style=\" margin: auto; ; float: left; font-size: 20px; width: 20% \"> </input>\n" +
+            "    <input type=\"button\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"ADD CARGO\" onclick=\"f(\'cargo\')\" style=\" margin: 0% 0% 0% 80%;  font-size: 20px; width: 20% \"> </input> \n" +
+        "    <input type=\"button\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"NEXT POINT\" onclick=\"f()\" style=\" margin: 0% 0% 0% 80%;  font-size: 20px; width: 20% \"> </input> \n" +
+
+        "\n" +
+        "\n" +
+        "\n" +
+        "</form>";
+    return html;
+}
+
+
+public  String htmlCargo() {
+    String html = "<form method=\"post\" class=\"login-container\"  action=\"AddOrderServlet\">\n" +
+            "                        <div class=\"form-group\">\n" +
+            "                            <label for=\"cargoname\" class=\"cols-sm-2 control-label\">Cargo name</label>\n" +
+            "                            <div class=\"cols-sm-10\">\n" +
+            "                                <div class=\"input-group\">\n" +
+            "                                    <span class=\"input-group-addon\"><i class=\"fa fa-users fa\" aria-hidden=\"true\"></i></span>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cargoname\" id=\"cargoname\"  value=\"\"/>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "\n" +
+            "                        <div class=\"form-group\">\n" +
+            "                            <label for=\"cargoweight\" class=\"cols-sm-2 control-label\">Cargo weight</label>\n" +
+            "                            <div class=\"cols-sm-10\">\n" +
+            "                                <div class=\"input-group\">\n" +
+            "                                    <span class=\"input-group-addon\"><i class=\"fa fa-building-o fa-lg\" aria-hidden=\"true\"></i></span>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cargoweight\" id=\"cargoweight\"  value=\"\"/>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "\n" +
+            "                        <div class=\"form-group\">\n" +
+            "                            <label for=\"cargostatus\" class=\"cols-sm-2 control-label\">Status</label>\n" +
+            "                            <div class=\"cols-sm-10\">\n" +
+            "                                <div class=\"input-group\">\n" +
+            "                                    <span class=\"input-group-addon\"><i class=\"fa fa-building-o fa-lg\" aria-hidden=\"true\"></i></span>\n" +
+            "                                    <input type=\"text\" class=\"form-control\" name=\"cargostatus\" id=\"cargostatus\"  value=\"\"/>\n" +
+            "                                </div>\n" +
+            "                            </div>\n" +
+            "                        </div>\n" +
+            "\n" +
+            "\n" +
+            "   <input type=\"submit\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"SAVE CARGO\" onclick=\"f(\'point\')\"  style=\" margin: auto; ; float: left; font-size: 20px; width: 20% \"> </input>\n" +
+
+            "    <input type=\"button\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"NEXT CARGO\" onclick=\"f(\'cargo\')\" style=\" margin: 0% 0% 0% 80%;  font-size: 20px; width: 20% \"> </input> \n" +
+
+            "\n" +
+            "\n" +
+            "\n" +
+            "</form>";
+return html;
+}
+
+
+public int addCargo(String name, String weight)
+{
+    CargoEntity cargoEntity = new CargoEntity(name,Float.parseFloat(weight),0);
+    GenericClass<CargoEntity> genericClass = new GenericClass<CargoEntity>();
+    genericClass.insert(cargoEntity);
+    return cargoEntity.getId();
+}
+
+
+
+}
+
+
+

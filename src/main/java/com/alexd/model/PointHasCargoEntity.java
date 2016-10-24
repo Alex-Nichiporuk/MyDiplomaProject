@@ -20,7 +20,7 @@ public class PointHasCargoEntity {
     public PointHasCargoEntity() {
     }
 
-    public PointHasCargoEntity(int pointId, int cargoId, boolean status, Timestamp date) {
+    public PointHasCargoEntity( int cargoId, int pointId, boolean status, Timestamp date) {
 
         this.pointId = pointId;
         this.cargoId = cargoId;

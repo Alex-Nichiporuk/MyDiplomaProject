@@ -21,8 +21,8 @@ public class OrdersEntity {
     public OrdersEntity() {
     }
 
-    public OrdersEntity(int id, boolean status, int pathId, int timeId, String truckId, int driverDescId) {
-        this.id = id;
+    public OrdersEntity(  boolean status, int pathId, int timeId, String truckId, int driverDescId) {
+
         this.status = status;
         this.pathId = pathId;
         this.timeId = timeId;

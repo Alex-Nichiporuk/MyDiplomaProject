@@ -7,23 +7,42 @@ import java.sql.Timestamp;
  * Created by Cj444 on 15.10.2016.
  */
 @Entity
-@Table(name = "driversdesc", schema = "mydb", catalog = "")
+@Table(name = "driversdesc", schema = "mydb" )
 public class DriversdescEntity {
     private int driverId;
     private long workTime;
     private int id;
-    private Integer descId;
+    private int descId;
     private DriverEntity driverByDriverId;
 
     public DriversdescEntity() {
     }
 
-    public DriversdescEntity(int driverId, long workTime, int id, Integer descId) {
+    public DriversdescEntity(int driverId, long workTime,  int descId) {
         this.driverId = driverId;
         this.workTime = workTime;
-        this.id = id;
+
         this.descId = descId;
     }
+
+    public DriversdescEntity(int driverId, long workTime) {
+        this.driverId = driverId;
+        this.workTime = workTime;
+
+
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     @Basic
     @Column(name = "Driver_id", nullable = false)
@@ -45,24 +64,15 @@ public class DriversdescEntity {
         this.workTime = workTime;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Desc_id", nullable = true)
-    public Integer getDescId() {
+    public int getDescId() {
         return descId;
     }
 
-    public void setDescId(Integer descId) {
+    public void setDescId(int descId) {
         this.descId = descId;
     }
 
@@ -76,7 +86,7 @@ public class DriversdescEntity {
         if (driverId != that.driverId) return false;
         if (id != that.id) return false;
 
-        if (descId != null ? !descId.equals(that.descId) : that.descId != null) return false;
+
 
         return true;
     }
@@ -86,7 +96,7 @@ public class DriversdescEntity {
         int result = driverId;
 
         result = 31 * result + id;
-        result = 31 * result + (descId != null ? descId.hashCode() : 0);
+
         return result;
     }
 

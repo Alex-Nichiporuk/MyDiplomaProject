@@ -7,6 +7,6 @@ import java.util.List;
  */
 public interface DriverServiceImpl {
      int addDriver(String name, String lastname, int city);
-  boolean updateDriver(int id, String name, String lastname, int city);
+  boolean updateDriver(int id, String name, String lastname, int city, String login, String password, int userId);
        List<DriverView> selectAll();
   }

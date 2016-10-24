@@ -18,13 +18,13 @@
 <jsp:include page="DriverBar.jsp"/>
 
 <div class="container">
-    <h2>Здравствуйте <c:out value="${driver.name}"> </c:out>! Ваш текущий заказ: </h2>
+    <h2>Hello <c:out value="${driver.name}"> </c:out>! Your current order: </h2>
 <table  class="table table-striped">
     <thead>
     <tr>
-        <td>Номер заказа</td>
-        <td>Номер фуры</td>
-        <td>Длина маршрута</td>
+        <td>Order number</td>
+        <td>Truck number</td>
+        <td>Path length</td>
 
     </tr>
     </thead>
@@ -40,12 +40,12 @@
     </div>
 
 <div class="container">
-    <h2>Водители, назначенные на этот заказ: </h2>
+    <h2>Drivers on this order: </h2>
     <table  class="table table-striped">
         <thead>
         <tr>
-            <td>Номер водителя</td>
-            <td>Водитель</td>
+            <td>Driver number</td>
+            <td>Driver</td>
 
         </tr>
         </thead>
@@ -65,14 +65,14 @@
 </div>
 
 <div class="container">
-    <h2>Ваш маршрут: </h2>
+    <h2>Your path: </h2>
     <table  class="table table-striped">
         <thead>
         <tr>
-            <td>Город</td>
-            <td>Груз</td>
-            <td>Вес</td>
-            <td>Разгрузка/Погрузка</td>
+            <td>City</td>
+            <td>Cargo</td>
+            <td>Weight</td>
+            <td>Out/In</td>
 
         </tr>
         </thead>
@@ -84,8 +84,8 @@
                 <td>${points.cargo}</td>
                 <td>${points.weight}</td>
                 <td>
-                    <c:if test="${points.status==true}"> разгрузка</c:if>
-                    <c:if test="${points.status==false}"> погрузка</c:if>
+                    <c:if test="${points.status==true}"> out</c:if>
+                    <c:if test="${points.status==false}"> in</c:if>
                 </td>
             </tr>
 

@@ -18,8 +18,8 @@ public class TimeEntity {
     public TimeEntity() {
     }
 
-    public TimeEntity(int id, Timestamp begin, Timestamp end) {
-        this.id = id;
+    public TimeEntity( Timestamp begin, Timestamp end) {
+
         this.begin = begin;
         this.end = end;
     }

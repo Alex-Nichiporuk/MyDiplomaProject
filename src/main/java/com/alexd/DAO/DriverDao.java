@@ -1,8 +1,7 @@
 package com.alexd.DAO;
 
 
-import com.alexd.model.DriverEntity;
-import com.alexd.model.OrdersEntity;
+import com.alexd.model.*;
 import com.alexd.util.man.EntManager;
 
 import javax.persistence.EntityManager;
@@ -30,6 +29,23 @@ public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl
       List<DriverEntity> result =  q.getResultList();
   return result;
 
+    }
+
+
+
+
+
+
+
+
+
+    public List<DriverEntity>getDriversByOrder(int order)
+    {
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String query = "select  d FROM DriverEntity as d , DriversdescEntity  as de, OrdersEntity as o WHERE d.id=de.driverId AND de.descId = o.driverDescId AND o.id="+order;
+        TypedQuery<DriverEntity> q = em.createQuery( query ,DriverEntity.class);
+        List<DriverEntity> result =  q.getResultList();
+     return result;
     }
 
     public HashMap<Integer , String>getCodriver(int order, EntityManager em)
@@ -82,10 +98,43 @@ public class DriverDao  extends GenericClass<DriverEntity> implements DriverImpl
     }
 
 
+public int getDoneOrder(int id)
+{
+    EntityManager em = EntManager.getManager().createEntityManager();
+    String query = "SELECT o FROM OrdersEntity AS o , DriversdescEntity AS dd , DriverEntity as d WHERE  o.driverDescId = dd.descId AND  dd.driverId = d.id AND o.status= true AND d.id="+id;
+    TypedQuery<OrdersEntity> q = em.createQuery( query ,OrdersEntity.class);
+    List<OrdersEntity> a = q.getResultList();
+    return a.size();
+}
 
+public   List<PathEntity> getPathLengthStat(int id)
+{
+    EntityManager em = EntManager.getManager().createEntityManager();
+    String query = "SELECT p FROM PathEntity AS p , DriversdescEntity AS dd , DriverEntity as d  , OrdersEntity AS o WHERE o.driverDescId = dd.descId AND  dd.driverId = d.id AND  p.id = o.pathId AND d.id="+id;
+    TypedQuery<PathEntity> q = em.createQuery( query ,PathEntity.class);
+    List<PathEntity> a = q.getResultList();
+    return a;
 
+}
 
+public List<CargoEntity> getWeightStat(int id)
+{
+    EntityManager em = EntManager.getManager().createEntityManager();
+    String query = "SELECT c FROM PointEntity AS point , PointHasCargoEntity AS h, PathEntity AS p , CargoEntity AS c , DriversdescEntity AS dd , DriverEntity as d  , OrdersEntity AS o WHERE point.pathId = p.id AND h.pointId = point.id AND h.cargoId = c.id AND o.driverDescId = dd.descId AND  dd.driverId = d.id AND  p.id = o.pathId AND d.id="+id;
+    TypedQuery<CargoEntity> q = em.createQuery( query ,CargoEntity.class);
+    List<CargoEntity> a = q.getResultList();
+    return a;
 
+}
 
+public List<DriversplanEntity> getTimeStat(int id)
+    {
+
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String query = "SELECT tp FROM DriversplanEntity AS tp , DriverEntity AS d WHERE d.id = tp.driverId  AND d.id="+id;
+        TypedQuery<DriversplanEntity> q = em.createQuery( query ,DriversplanEntity.class);
+        List<DriversplanEntity> a = q.getResultList();
+        return a;
+    }
 
 }

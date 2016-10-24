@@ -1,10 +1,12 @@
 package com.alexd.service;
 
 import com.alexd.DAO.*;
-import com.alexd.model.DriverEntity;
-import com.alexd.model.OrdersEntity;
+import com.alexd.model.*;
 import com.alexd.util.man.EntManager;
+import com.alexd.util.man.TimeUtil;
+import com.alexd.view.util.DriverStatView;
 import com.alexd.view.util.DriverView;
+import com.alexd.view.util.UserView;
 import org.osgi.service.device.Driver;
 
 
@@ -22,12 +24,14 @@ EntityManager em;
     DriverDao driverDao;
     OrdersDao orderDao;
     TimeDao timeDao;
+    UserDao userDao;
 
     public DriverService()
     {
         driverDao = new DriverDao();
         orderDao = new OrdersDao();
         timeDao = new TimeDao();
+        userDao = new UserDao();
 
     }
 
@@ -57,19 +61,28 @@ EntityManager em;
       return  de.getId();
     }
 
-    public boolean updateDriver(int id, String name, String lastname, int city)
+    public boolean updateDriver(int id, String name, String lastname, int city, String login, String password, int userId)
     {
-        try {
-            em.getTransaction().begin();
-            driverDao.update(new DriverEntity(id,name,lastname,city));
-            em.getTransaction().commit();
-        }
+       try {
+           driverDao.update(new DriverEntity(id, name, lastname, city));
+           userDao.update(new UserEntity(userId, login, password, name, lastname, 3, id));
+       }
         catch (Exception e)
         {
             return false;
         }
         return true;
     }
+
+
+    public UserView getDriverByDriverId(String id)
+    {
+        UserDao userDao = new UserDao();
+
+        return new UserView(userDao.getByDriverId(Integer.parseInt(id)));
+    }
+
+
 
 public   ArrayList<DriverView> selectAll()
 {
@@ -159,10 +172,52 @@ public ArrayList<DriverView> portableDriver(int time , String truck)
 {
     EntityManager em = EntManager.getManager().createEntityManager();
     List<DriverEntity> result = driverDao.getDriverForOrder(checkTimeForDriver(time),truck, em);
+ TimeEntity timeEntity = (TimeEntity)timeDao.findById(time);
+long summ=0;
+    long summ2 = 0;
     ArrayList<DriverView> driverViews = new ArrayList<DriverView>();
-    for(DriverEntity a : result)
+    if(TimeUtil.getMonth(timeEntity.getBegin())==TimeUtil.getMonth(timeEntity.getEnd())) {
+     long   workPeriod = timeDao.getEndTime(time) -timeDao.getBeginTime(time);
+        for (DriverEntity a : result) {
+            for (DriversplanEntity b : a.getDriversplenById()) {
+                if (TimeUtil.getMonth(b.getDriverDate())==TimeUtil.getMonth(timeEntity.getBegin()))
+                {
+                    summ=summ+b.getWorkTime();
+                }
+
+            }
+if(summ+workPeriod<633600000)
+{
+    driverViews.add(new DriverView(a));
+}
+        }
+    }
+    else
     {
-        driverViews.add(new DriverView(a));
+        long   fullPeriod = timeDao.getEndTime(time) -timeDao.getBeginTime(time);
+    long    workPeriod1 = notFullMonth( timeDao.getBeginTime(time), timeDao.getEndTime(time));
+        long   workPeriod2 = fullPeriod-workPeriod1;
+
+        for (DriverEntity a : result) {
+            for (DriversplanEntity b : a.getDriversplenById()) {
+                if (TimeUtil.getMonth(b.getDriverDate())==TimeUtil.getMonth(timeEntity.getBegin()))
+                {
+                    summ=summ+b.getWorkTime();
+                }
+                if(TimeUtil.getMonth(b.getDriverDate())==TimeUtil.getMonth(timeEntity.getEnd()))
+                {
+                    summ2=summ2+b.getWorkTime();
+                }
+
+            }
+            if(summ+workPeriod1<633600000&&summ2+workPeriod2<633600000)
+            {
+                driverViews.add(new DriverView(a));
+            }
+        }
+
+
+
     }
 
 return  driverViews;
@@ -210,7 +265,140 @@ public String htmlTable(String code)
 return htmlHead+data+htmlEnd;
 }
 
+    public String editHtmlDriver(String id)
+    {
+        UserDao userDao = new UserDao();
+        DriverView driverView  =  new DriverView((DriverEntity) driverDao.findById(Integer.parseInt(id)));
+        UserEntity userEntity = userDao.getByDriverId(Integer.parseInt(id));
+        String html = "<form method=\"post\" class=\"login-container\"  action=\"EditServlet\">\n" +
+                "                        <div class=\"form-group\">\n" +
+                "                            <label for=\"email\" class=\"cols-sm-2 control-label\">Driver name</label>\n" +
+                "                            <div class=\"cols-sm-10\">\n" +
+                "                                <div class=\"input-group\">\n" +
+                "                                    <span class=\"input-group-addon\"><i class=\"fa fa-user fa\" aria-hidden=\"true\"></i></span>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"name\" id=\"email\"  value=\""+driverView.getName()+"\"/>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "\n" +
+                "                        <div class=\"form-group\">\n" +
+                "                            <label for=\"username\" class=\"cols-sm-2 control-label\">Driver last name</label>\n" +
+                "                            <div class=\"cols-sm-10\">\n" +
+                "                                <div class=\"input-group\">\n" +
+                "                                    <span class=\"input-group-addon\"><i class=\"fa fa-users fa\" aria-hidden=\"true\"></i></span>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"lastname\" id=\"username\"  value=\""+driverView.getLastname()+"\"/>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "\n" +
+                "                        <div class=\"form-group\">\n" +
+                "                            <label for=\"password\" class=\"cols-sm-2 control-label\">City</label>\n" +
+                "                            <div class=\"cols-sm-10\">\n" +
+                "                                <div class=\"input-group\">\n" +
+                "                                    <span class=\"input-group-addon\"><i class=\"fa fa-building-o fa-lg\" aria-hidden=\"true\"></i></span>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"city\" id=\"password\"  value=\""+driverView.getCity()+"\"/>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "\n" +
+                "                        <div class=\"form-group\">\n" +
+                "                            <label for=\"confirm\" class=\"cols-sm-2 control-label\">Driver login</label>\n" +
+                "                            <div class=\"cols-sm-10\">\n" +
+                "                                <div class=\"input-group\">\n" +
+                "                                    <span class=\"input-group-addon\"><i class=\"fa fa-bell fa-lg\" aria-hidden=\"true\"></i></span>\n" +
+                "                                    <input type=\"text\" class=\"form-control\" name=\"login\" id=\"confirm\"  value=\""+userEntity.getLogin()+"\"/>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                <div class=\"form-group\">\n" +
+                "                    <label for=\"confirm\" class=\"cols-sm-2 control-label\">Password</label>\n" +
+                "                    <div class=\"cols-sm-10\">\n" +
+                "                        <div class=\"input-group\">\n" +
+                "                            <span class=\"input-group-addon\"><i class=\"fa fa-lock fa-lg\" aria-hidden=\"true\"></i></span>\n" +
+                "                            <input type=\"password\" class=\"form-control\" name=\"password\"    placeholder=\"password\"/>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "\n" +
+                "<span style=\"color: red\">\n" +
+                "     <c:if test=\"${not empty error}\">\n" +
+                "        <c:out value=\"${error}\"> </c:out>\n" +
+                "    </c:if>\n" +
+                "</span>\n" +
+                "    <span style=\"color: green\">\n" +
+                "<c:if test=\"${not empty driver}\">\n" +
+                "    <c:out value=\"${driver}\"> </c:out>\n" +
+                "</c:if>\n" +
+                "\n" +
+                "</span>\n" +
+                "\n" +
+                "   <input type=\"submit\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"OK\" style=\" margin: auto; ; float: left; font-size: 20px; width: 20% \"> </input>\n" +
+                "    <input type=\"button\"   class=\"btn btn-primary btn-lg btn-block login-button\"  value=\"Cancel\" onclick=\"f()\" style=\" margin: 0% 0% 0% 80%;  font-size: 20px; width: 20% \"> </input> \n" +
 
+                "\n" +
+                "\n" +
+                "\n" +
+                "</form>";
+return html;
+    }
+
+
+    public void updateTimeDriver(int order)
+    {
+       OrdersEntity ordersEntity = (OrdersEntity)orderDao.findById(order);
+
+        long workPeriod;
+        long workPeriod1;
+        long workPeriod2;
+
+        if( compareMonth(timeDao.getEndTime(  ordersEntity.getTimeByTimeId().getId()) , timeDao.getBeginTime(  ordersEntity.getTimeByTimeId().getId())))
+        {
+            workPeriod = timeDao.getEndTime(  ordersEntity.getTimeByTimeId().getId()) -timeDao.getBeginTime(  ordersEntity.getTimeByTimeId().getId());
+
+            Calendar a = Calendar.getInstance();
+
+            a.setTime(new Date(ordersEntity.getTimeByTimeId().getBegin().getTime()));
+      int month = a.get(Calendar.MONTH);
+            String date1 ="01/"+ month+"/2016";
+          Timestamp monthOfDrv =  TimeUtil.convertStringToTimestamp(date1);
+           for(DriverEntity c : driverDao.getDriversByOrder(ordersEntity.getId()))
+           {
+               c.setTimeStatus(c.getTimeStatus()+workPeriod);
+               driverDao.update(c);
+               GenericClass<DriversplanEntity> genericClass = new GenericClass<DriversplanEntity>();
+               genericClass.update(new DriversplanEntity(monthOfDrv,workPeriod,c.getId()));
+           }
+
+
+        }
+        else
+        {
+            long fullperiod = timeDao.getEndTime(  ordersEntity.getTimeByTimeId().getId()) -timeDao.getBeginTime(  ordersEntity.getTimeByTimeId().getId());
+            Calendar a = Calendar.getInstance();
+
+            a.setTime(new Date(ordersEntity.getTimeByTimeId().getBegin().getTime()));
+            int month1 = a.get(Calendar.MONTH);
+            String date1 = "01/"+month1+"/2016";
+            Calendar b = Calendar.getInstance();
+            b.setTime(new Date(timeDao.getEndTime(ordersEntity.getTimeByTimeId().getId())));
+            int month2 = b.get(Calendar.MONTH);
+            String date2 = "01/"+month2+"/2016";
+            workPeriod1 = notFullMonth( timeDao.getBeginTime(ordersEntity.getTimeByTimeId().getId()), timeDao.getEndTime(ordersEntity.getTimeByTimeId().getId()));
+            workPeriod2 = fullperiod-workPeriod1;
+            Timestamp monthOfDrv1 =  TimeUtil.convertStringToTimestamp(date1);
+            Timestamp monthOfDrv2 =  TimeUtil.convertStringToTimestamp(date2);
+            for(DriverEntity c : driverDao.getDriversByOrder(ordersEntity.getId()))
+            {
+
+
+                GenericClass<DriversplanEntity> genericClass = new GenericClass<DriversplanEntity>();
+                genericClass.update(new DriversplanEntity(monthOfDrv1,workPeriod1,c.getId()));
+                genericClass.update(new DriversplanEntity(monthOfDrv2,workPeriod2,c.getId()));
+            }
+        }
+
+
+    }
 
 
 
@@ -238,6 +426,10 @@ workPeriod = notFullMonth( timeDao.getBeginTime(time), timeDao.getEndTime(time))
 return workPeriod;
 }
 
+
+
+
+
 private boolean compareMonth(long begin, long end)
 {
     Calendar a = Calendar.getInstance();
@@ -259,6 +451,53 @@ private long notFullMonth(long begin, long end)
 
 
 }
+
+
+
+
+
+
+
+public DriverStatView getDriverStat(int driverId)
+{
+  int countOrder =  driverDao.getDoneOrder(driverId);
+  double path = 0;
+    long time = 0;
+    float weight = 0;
+  for(PathEntity a :  driverDao.getPathLengthStat(driverId))
+  {
+      path = path + a.getLength();
+  }
+  for(DriversplanEntity a : driverDao.getTimeStat(driverId) )
+  {
+      time = a.getWorkTime();
+  }
+
+  for(CargoEntity a: driverDao.getWeightStat(driverId))
+  {
+      weight= weight+ a.getWeight();
+  }
+    return new DriverStatView(countOrder,path,time, weight);
+}
+
+
+
+
+
+
+public int getDriverIdByLogin(String login)
+{
+   UserEntity u = userDao.getByDriverLogin(login);
+    return u.getDriverId();
+}
+
+
+
+
+
+
+
+
 
 
 }

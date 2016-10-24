@@ -1,6 +1,7 @@
 package com.alexd.DAO;
 
 import com.alexd.model.TruckEntity;
+import com.alexd.util.man.EntManager;
 import com.alexd.view.util.TruckView;
 
 import javax.persistence.EntityManager;
@@ -17,9 +18,16 @@ public class TruckDao extends GenericClass<TruckEntity> implements TruckImpl {
         super( TruckEntity.class);
     }
 
+public void setBusyTruck(String id)
+{
+    TruckEntity truckEntity = (TruckEntity)findById(id);
+    truckEntity.setBusyStatus(false);
+    update(truckEntity);
+}
 
-    public List<TruckEntity>selectAll(EntityManager em)
+    public List<TruckEntity>selectAll()
     {
+        EntityManager em = EntManager.getManager().createEntityManager();
         TypedQuery<TruckEntity> q = em.createQuery("select  t FROM TruckEntity as t" ,TruckEntity.class);
         List<TruckEntity> result =  q.getResultList();
         return result;
@@ -39,6 +47,16 @@ public class TruckDao extends GenericClass<TruckEntity> implements TruckImpl {
             truckResult.add(new TruckView(a));
         }
 return truckResult;
+    }
+
+    public List<TruckEntity>getByNum(String code)
+    {
+        EntityManager em = EntManager.getManager().createEntityManager();
+        String param = "'"+code+"%'";
+        String query = "SELECT d FROM TruckEntity AS d  WHERE d.id LIKE"+ param ;
+        TypedQuery<TruckEntity> q = em.createQuery( query ,TruckEntity.class);
+
+        return q.getResultList();
     }
 
 
